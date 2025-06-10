@@ -2,13 +2,14 @@ import { useNavigate  } from 'react-router-dom' // React Routerを使うため�
 
 function Page1(){
     const navigate = useNavigate()
-    const changePage = () =>{
-        navigate('/Page2')
+    const changePage = (page) =>{
+        navigate(page)
     }
     return (
         <>
             <h1>page1</h1>
-            <button onClick={changePage}>pageBへ遷移</button>
+            <button onClick={() => changePage('/')}>Homeへ遷移</button>
+            <button onClick={() => changePage('/Page2')}>page2へ遷移</button>
         </>
     )
 
