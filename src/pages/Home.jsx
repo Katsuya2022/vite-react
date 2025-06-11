@@ -1,17 +1,18 @@
-import { useNavigate  } from 'react-router-dom' // React Routerを使うためのもの
+import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button/Button';
 
-function Home(){
-    const navigate = useNavigate()
-    const changePage = (page) =>{
-        navigate(page)
-    }
-    return (
-        <>
-            <h1>Home</h1>
-            <button onClick={() => changePage('/Page1')}>page1へ遷移</button>
-            <button onClick={() => changePage('/Page2')}>page2へ遷移</button>
-        </>
-    )
+const Home = () => {
+  const navigate = useNavigate()
+  const changePage = (page) => {
+    navigate(page)
+  }
+  return (
+    <div className='home'>
+      <h1>Home</h1>
+      <Button text='page1へ遷移' func={() => changePage('/page1')}></Button>
+      <Button text='page2へ遷移' func={() => changePage('/page2')}></Button>
+    </div>
+  )
 
 }
 export default Home

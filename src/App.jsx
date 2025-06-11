@@ -1,6 +1,7 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+const App = () => {
     return (
         <div>
             <h1>HELLO WORLD!</h1>
