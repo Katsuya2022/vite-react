@@ -1,5 +1,6 @@
 import React from "react";
 import HomeIcon from '@mui/icons-material/Home';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 const SideMenuDatas = [
   {
@@ -9,12 +10,12 @@ const SideMenuDatas = [
   },
   {
     text: 'Page1',
-    icon: '',
+    icon: <DescriptionIcon />,
     link: '/page1'
   },
   {
     text: 'Page2',
-    icon: '',
+    icon: <DescriptionIcon />,
     link: '/page2'
   },
 ];
