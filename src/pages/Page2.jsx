@@ -9,8 +9,6 @@ const Page2 = () => {
   return (
     <div className='page2'>
       <h1>page2</h1>
-      <Button text='homeへ遷移' func={() => changePage('/')}></Button>
-      <Button text='page1へ遷移' func={() => changePage('/page1')}></Button>
     </div>
   )
 

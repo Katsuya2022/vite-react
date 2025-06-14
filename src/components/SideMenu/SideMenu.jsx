@@ -14,7 +14,12 @@ const SideMenu = () => {
       <ul className='side-menu-list'>
         {SideMenuDatas.map((data, index) => {
           return (
-            <li key={index} className='row' onClick={() => changePage(data.link)}>
+            <li 
+              id={window.location.pathname === data.link ? 'active' : ''} 
+              className='menu-item'
+              key={index}
+              onClick={() => changePage(data.link)}
+            >
               <div id='icon'>{data.icon}</div>
               <div id='text'>{data.text}</div>
             </li>
