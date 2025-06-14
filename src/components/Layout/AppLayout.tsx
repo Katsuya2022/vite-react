@@ -11,7 +11,9 @@ const AppLayout = () => {
       <Header />
       <div className='contents-area'>
         <SideMenu />
-        <Outlet />
+        <div id='main'>
+          <Outlet />
+        </div>
       </div>
     </>
   )
