@@ -1,5 +1,25 @@
 .side-menu {
   height: calc(100vh - 48px);
   width: 200px;
-  background-color: #eceff1;;
+  background-color: #eceff1;
+}
+
+.side-menu-list {
+  height: auto;
+  padding: 0;
+  width: 100%;
+}
+
+.side-menu-list .row {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  /* color: white; */
+  justify-content: center;
+  align-items: center;
+}
+
+.side-menu-list .row:hover {
+  cursor: pointer;
+  background-color: #c4c8ca;
 }
