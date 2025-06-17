@@ -49,6 +49,32 @@ const Page3 = () => {
       <input type="text" name="todo" id="todo" value={todo} onChange={(e) => {setTodo(e.target.value)}}/>
       <p className='text-danger'>{errorText}</p>
       <button className='btn btn-primary' onClick={() => registTodo()}>登録</button>
+      {
+        !response
+        ? 
+          <p>isLoading...</p>
+        :
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">title</th>
+                <th scope="col">isCompleted</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+              response.map((data, index) => (
+                <tr scope="row" key={index}>
+                  <td>{data.id}</td>
+                  <td>{data.title}</td>
+                  <td>{`${data.isCompleted}`}</td>
+                </tr>
+              ))
+            }
+            </tbody>
+          </table>
+        }
       <pre>{response ? JSON.stringify(response, null, 2) : 'Loading...'}</pre>
     </div>
   )
