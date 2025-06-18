@@ -127,9 +127,9 @@ const Page3 = () => {
                     <td>{data.id}</td>
                     <td>{data.title}</td>
                     <td>
-                    <div class="form-check">
+                    <div className="form-check">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         id="flexCheckChecked"
                         checked={data.isCompleted}
