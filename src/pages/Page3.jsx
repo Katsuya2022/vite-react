@@ -1,12 +1,14 @@
 // import React from 'react'
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
+import './Page3.css'
 
 const Page3 = () => {
   const [response, setResponse] = useState(null);
   const [displayTodos, setDisplayTodos] = useState([]);
   const [todo, setTodo] = useState('');
   const [errorText, setErrorText] = useState('');
+  const [isHideCompletedTodo, setIsHideCompletedTodo] = useState(false);
 
   /**
    * 初期表示時のTodo情報を取得する処理を呼び出す
@@ -19,11 +21,12 @@ const Page3 = () => {
    * Todoを取得する
    */
   const fetchData = async () => {
-    const { data, error } = await supabase.from('todos').select();
+    const { data, error } = await supabase.from('todos').select().order('id', {ascending: true});
     if (error) {
       console.error(error);
     } else {
       setResponse(data);
+      setDisplayTodos(data);
     }
   };
 
@@ -44,6 +47,11 @@ const Page3 = () => {
     }
   }
 
+  const updateTodo = async (todo, newCompletedStatue) => {
+    await supabase.from('todos').update({ isCompleted: newCompletedStatue }).eq('id', todo.id);
+    fetchData();
+  }
+
   /**
    * Todoを削除する
    * @param {object} todo 削除対象のtodo
@@ -55,7 +63,9 @@ const Page3 = () => {
     fetchData();
   }
 
-  const [isHideCompletedTodo, setIsHideCompletedTodo] = useState(false);
+  /**
+   * 完了したTodoを非表示にする
+   */
   const hideCompletedTodo = () => {
     if (!response) return;
     if (isHideCompletedTodo) {
@@ -67,6 +77,11 @@ const Page3 = () => {
       setDisplayTodos(todos);
     }
   };
+
+  /**
+   * 完了したTodoを非表示にするスイッチ切り替え処理
+   * @param {*} e スイッチ変更イベント
+   */
   const handleChange = (e) => {
     setIsHideCompletedTodo(e.target.checked);
     hideCompletedTodo();
@@ -75,21 +90,22 @@ const Page3 = () => {
   return (
     <div className='page3'>
       <h1>Page3</h1>
-      <input type="text" name="todo" id="todo" value={todo} onChange={(e) => {setTodo(e.target.value)}}/>
-      <p className='text-danger'>{errorText}</p>
-      <button className='btn btn-primary' onClick={() => registTodo()}>登録</button>
-      <div className="form-check form-switch">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          role="switch"
-          id="flexSwitchCheckDefault"
-          checked={isHideCompletedTodo}
-          onChange={handleChange}
-        />
-        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">{`${isHideCompletedTodo}`}</label>
-        {/* <label className="form-check-label" htmlFor="flexSwitchCheckDefault">完了したTodoを非表示にする</label> */}
+      <div className='controll-area'>
+        <input className='todo-input' type="text" id="todo" value={todo} onChange={(e) => {setTodo(e.target.value)}}/>
+        <button className='btn btn-primary' onClick={() => registTodo()}>登録</button>
+        <div className="form-check form-switch  switch-btn">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            role="switch"
+            id="flexSwitchCheckDefault"
+            checked={isHideCompletedTodo}
+            onChange={handleChange}
+          />
+          <label className="form-check-label" htmlFor="flexSwitchCheckDefault">完了したTodoを非表示にする</label>
+        </div>
       </div>
+      <p className='text-danger'>{errorText}</p>
       {
         !response
         ? 
@@ -106,19 +122,33 @@ const Page3 = () => {
             </thead>
             <tbody>
               {
-              displayTodos.map((data, index) => (
-                <tr key={index}>
-                  <td>{data.id}</td>
-                  <td>{data.title}</td>
-                  <td>{`${data.isCompleted}`}</td>
-                  <td><div><button className='btn btn-danger' onClick={() => deleteTodo(data)}>delete</button></div></td>
-                </tr>
-              ))
-            }
+                displayTodos.map((data, index) => (
+                  <tr key={index}>
+                    <td>{data.id}</td>
+                    <td>{data.title}</td>
+                    <td>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="flexCheckChecked"
+                        checked={data.isCompleted}
+                        onChange={() => updateTodo(data, !data.isCompleted)}
+                       />
+                    </div>
+                    </td>
+                    {/* <td>{`${data.isCompleted}`}</td> */}
+                    <td>
+                      <div>
+                        <button className='btn btn-danger' onClick={() => deleteTodo(data)}>delete</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              }
             </tbody>
           </table>
         }
-      <pre>{response ? JSON.stringify(response, null, 2) : 'Loading...'}</pre>
     </div>
   )
 }

@@ -1,0 +1,12 @@
+.controll-area {
+  display: flex;
+  align-items: center;
+}
+
+.todo-input {
+  height: 38px;
+}
+
+.switch-btn {
+  margin-left: 14px;
+}
