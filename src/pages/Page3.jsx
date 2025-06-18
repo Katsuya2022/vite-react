@@ -43,6 +43,17 @@ const Page3 = () => {
     }
   }
 
+  /**
+   * Todoを削除する
+   * @param {object} todo 削除対象のtodo
+   */
+  const deleteTodo = async (todo) => {
+    if (window.confirm(`${todo.title}を削除してよろしいですか？`)) {
+      await supabase.from('todos').delete().eq('id', todo.id);
+    }
+    fetchData();
+  }
+
   return (
     <div className='page3'>
       <h1>Page3</h1>
@@ -60,15 +71,17 @@ const Page3 = () => {
                 <th scope="col">id</th>
                 <th scope="col">title</th>
                 <th scope="col">isCompleted</th>
+                <th scope="col">delete</th>
               </tr>
             </thead>
             <tbody>
               {
               response.map((data, index) => (
-                <tr scope="row" key={index}>
+                <tr key={index}>
                   <td>{data.id}</td>
                   <td>{data.title}</td>
                   <td>{`${data.isCompleted}`}</td>
+                  <td><div><button className='btn btn-danger' onClick={() => deleteTodo(data)}>delete</button></div></td>
                 </tr>
               ))
             }
