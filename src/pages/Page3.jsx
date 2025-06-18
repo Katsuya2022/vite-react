@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase';
 
 const Page3 = () => {
   const [response, setResponse] = useState(null);
+  const [displayTodos, setDisplayTodos] = useState([]);
   const [todo, setTodo] = useState('');
   const [errorText, setErrorText] = useState('');
 
@@ -54,12 +55,41 @@ const Page3 = () => {
     fetchData();
   }
 
+  const [isHideCompletedTodo, setIsHideCompletedTodo] = useState(false);
+  const hideCompletedTodo = () => {
+    if (!response) return;
+    if (isHideCompletedTodo) {
+      setDisplayTodos(response);
+    } else {
+      const todos = response.filter((todo) => {
+        return !todo.isCompleted
+      });
+      setDisplayTodos(todos);
+    }
+  };
+  const handleChange = (e) => {
+    setIsHideCompletedTodo(e.target.checked);
+    hideCompletedTodo();
+  };
+
   return (
     <div className='page3'>
       <h1>Page3</h1>
       <input type="text" name="todo" id="todo" value={todo} onChange={(e) => {setTodo(e.target.value)}}/>
       <p className='text-danger'>{errorText}</p>
       <button className='btn btn-primary' onClick={() => registTodo()}>登録</button>
+      <div className="form-check form-switch">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckDefault"
+          checked={isHideCompletedTodo}
+          onChange={handleChange}
+        />
+        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">{`${isHideCompletedTodo}`}</label>
+        {/* <label className="form-check-label" htmlFor="flexSwitchCheckDefault">完了したTodoを非表示にする</label> */}
+      </div>
       {
         !response
         ? 
@@ -76,7 +106,7 @@ const Page3 = () => {
             </thead>
             <tbody>
               {
-              response.map((data, index) => (
+              displayTodos.map((data, index) => (
                 <tr key={index}>
                   <td>{data.id}</td>
                   <td>{data.title}</td>
