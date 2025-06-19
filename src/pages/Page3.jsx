@@ -26,7 +26,7 @@ const Page3 = () => {
       console.error(error);
     } else {
       setResponse(data);
-      setDisplayTodos(data);
+      setDisplayTodos(isHideCompletedTodo ? data.filter(todo => !todo.isCompleted) : data);
     }
   };
 
@@ -129,17 +129,16 @@ const Page3 = () => {
                       <td>{data.id}</td>
                       <td>{data.title}</td>
                       <td>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          id="flexCheckChecked"
-                          checked={data.isCompleted}
-                          onChange={() => updateTodo(data, !data.isCompleted)}
-                        />
-                      </div>
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id="flexCheckChecked"
+                            checked={data.isCompleted}
+                            onChange={() => updateTodo(data, !data.isCompleted)}
+                          />
+                        </div>
                       </td>
-                      {/* <td>{`${data.isCompleted}`}</td> */}
                       <td>
                         <div>
                           <button className='btn btn-sm btn-danger' onClick={() => deleteTodo(data)}>delete</button>
