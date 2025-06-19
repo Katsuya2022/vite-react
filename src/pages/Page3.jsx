@@ -43,6 +43,7 @@ const Page3 = () => {
       setErrorText(error.message);
     } else {
       setErrorText('');
+      setTodo('');
       fetchData();
     }
   }
@@ -111,43 +112,45 @@ const Page3 = () => {
         ? 
           <p>isLoading...</p>
         :
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">id</th>
-                <th scope="col">title</th>
-                <th scope="col">isCompleted</th>
-                <th scope="col">delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                displayTodos.map((data, index) => (
-                  <tr key={index}>
-                    <td>{data.id}</td>
-                    <td>{data.title}</td>
-                    <td>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="flexCheckChecked"
-                        checked={data.isCompleted}
-                        onChange={() => updateTodo(data, !data.isCompleted)}
-                       />
-                    </div>
-                    </td>
-                    {/* <td>{`${data.isCompleted}`}</td> */}
-                    <td>
-                      <div>
-                        <button className='btn btn-danger' onClick={() => deleteTodo(data)}>delete</button>
+          <div className='table-wrapper'>
+            <table className="table table-hover">
+              <thead className="table-light table-header">
+                <tr>
+                  <th scope="col" className='col-id'>id</th>
+                  <th scope="col" className='col-title'>title</th>
+                  <th scope="col" className='col-iscompleted'>isCompleted</th>
+                  <th scope="col" className='col-delete'>delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  displayTodos.map((data, index) => (
+                    <tr key={index}>
+                      <td>{data.id}</td>
+                      <td>{data.title}</td>
+                      <td>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="flexCheckChecked"
+                          checked={data.isCompleted}
+                          onChange={() => updateTodo(data, !data.isCompleted)}
+                        />
                       </div>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
+                      </td>
+                      {/* <td>{`${data.isCompleted}`}</td> */}
+                      <td>
+                        <div>
+                          <button className='btn btn-sm btn-danger' onClick={() => deleteTodo(data)}>delete</button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
         }
     </div>
   )
