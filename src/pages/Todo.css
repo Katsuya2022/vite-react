@@ -1,0 +1,47 @@
+.controll-area {
+  display: flex;
+  align-items: center;
+}
+
+.todo-input {
+  height: 38px;
+  width: 360px;
+}
+
+.todo-input::placeholder {
+  color: #dddddd;
+}
+
+.switch-btn {
+  margin-left: 14px;
+}
+
+.table-wrapper {
+  /* max-height: 476px; */
+  /* 100vhからヘッダーの58pxを引いた高さ */
+  height: calc(100vh - 58px - 200px);
+  overflow-y: auto;
+}
+
+.table-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.col-id {
+  width: 5%;
+}
+
+.col-iscompleted, .col-delete {
+  width: 10%;
+}
+
+.col-title {
+  width: 75%;
+}
+
+.custom-checkbox-size {
+  width: 1.5rem;  /* 幅 */
+  height: 1.5rem; /* 高さ */
+}

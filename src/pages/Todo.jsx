@@ -1,14 +1,15 @@
 // import React from 'react'
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
-import './Page3.css'
+import './Todo.css'
 
-const Page3 = () => {
+const Todo = () => {
   const [response, setResponse] = useState(null);
   const [displayTodos, setDisplayTodos] = useState([]);
   const [todo, setTodo] = useState('');
   const [errorText, setErrorText] = useState('');
   const [isHideCompletedTodo, setIsHideCompletedTodo] = useState(false);
+  const TODO_MAX_LENGTH = 140;
 
   /**
    * 初期表示時のTodo情報を取得する処理を呼び出す
@@ -89,10 +90,18 @@ const Page3 = () => {
   };
 
   return (
-    <div className='page3'>
-      <h1>Page3</h1>
+    <div className='Todo'>
+      <h1>Todo</h1>
       <div className='controll-area'>
-        <input className='todo-input' type="text" id="todo" value={todo} onChange={(e) => {setTodo(e.target.value)}}/>
+        <input
+          id="todo"
+          className='todo-input'
+          type="text"
+          placeholder='最大140文字まで登録できます'
+          maxLength={TODO_MAX_LENGTH}
+          value={todo}
+          onChange={(e) => {setTodo(e.target.value)}}
+        />
         <button className='btn btn-primary' onClick={() => registTodo()}>登録</button>
         <div className="form-check form-switch  switch-btn">
           <input
@@ -116,32 +125,32 @@ const Page3 = () => {
             <table className="table table-hover">
               <thead className="table-light table-header">
                 <tr>
-                  <th scope="col" className='col-id'>id</th>
-                  <th scope="col" className='col-title'>title</th>
-                  <th scope="col" className='col-iscompleted'>isCompleted</th>
-                  <th scope="col" className='col-delete'>delete</th>
+                  <th scope="col" className='col-id'>＃</th>
+                  <th scope="col" className='col-title'>タイトル</th>
+                  <th scope="col" className='col-iscompleted text-center'>完了</th>
+                  <th scope="col" className='col-delete text-center'>削除</th>
                 </tr>
               </thead>
               <tbody>
                 {
                   displayTodos.map((data, index) => (
                     <tr key={index}>
-                      <td>{data.id}</td>
+                      <td>{index + 1}</td>
                       <td>{data.title}</td>
-                      <td>
-                        <div className="form-check">
+                      <td className='text-center'>
+                        <div className="form-check d-inline-block">
                           <input
-                            className="form-check-input"
+                            className="form-check-input custom-checkbox-size"
                             type="checkbox"
-                            id="flexCheckChecked"
+                            id={`checkbox-${data.id}`}
                             checked={data.isCompleted}
                             onChange={() => updateTodo(data, !data.isCompleted)}
                           />
                         </div>
                       </td>
-                      <td>
+                      <td className='text-center'>
                         <div>
-                          <button className='btn btn-sm btn-danger' onClick={() => deleteTodo(data)}>delete</button>
+                          <button className='btn btn-sm btn-danger' onClick={() => deleteTodo(data)}>削除</button>
                         </div>
                       </td>
                     </tr>
@@ -155,4 +164,4 @@ const Page3 = () => {
   )
 }
 
-export default Page3
+export default Todo
