@@ -1,6 +1,7 @@
 import React from "react";
 import HomeIcon from '@mui/icons-material/Home';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import EditDocumentIcon from '@mui/icons-material/EditDocument';
 import DescriptionIcon from '@mui/icons-material/Description';
 
 const SideMenuDatas = [
@@ -15,8 +16,8 @@ const SideMenuDatas = [
     link: '/todo'
   },
   {
-    text: 'Page1',
-    icon: <DescriptionIcon />,
+    text: 'Skill-Sheet',
+    icon: <EditDocumentIcon />,
     link: '/page1'
   },
   {
