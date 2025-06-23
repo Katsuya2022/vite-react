@@ -1,0 +1,13 @@
+.view-area {
+  height: calc(100vh - 58px - 200px);
+  overflow-y: auto;
+}
+
+.table-name-input {
+  height: 38px;
+}
+
+.table-name-link {
+  cursor: pointer;
+  padding-left: 10px;
+}
