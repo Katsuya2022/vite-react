@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import './Page2.css'
+import './TableViewer.css'
 
-const Page2 = () => {
+const TableViewer = () => {
   const [tableNames, setTableNames] = useState([]);
   const [response, setResponse] = useState(null);
   const [tableName, setTableName] = useState('');
+  const [errorText, setErrorText] = useState('');
 
   /**
    * 初期表示時のTodo情報を取得する処理を呼び出す
@@ -31,11 +32,17 @@ const Page2 = () => {
    * Todoを取得する
    */
   const fetchData = async () => {
+    if (tableName === '') {
+      setErrorText('テーブル名を入力してください。');
+      return;
+    }
     const { data, error } = await supabase.from(tableName).select().order('id', {ascending: true});
     if (error) {
       console.error(error);
       setResponse(null);
+      setErrorText('対象テーブルが取得できませんでした。')
     } else {
+      setErrorText('')
       setResponse(data);
     }
   };
@@ -47,8 +54,8 @@ const Page2 = () => {
   }
 
   return (
-    <div className='page2'>
-      <h1>データ一覧</h1>
+    <div className='tableViewer'>
+      <h1>データ確認</h1>
       <div className='controll-area'>
         <form onSubmit={handleSubmit}>
           <input
@@ -62,26 +69,34 @@ const Page2 = () => {
           <button type='submit' className='btn btn-primary' onClick={fetchData}>検索</button>
         </form>
       </div>
+      <p className='error-text text-danger'>{errorText}</p>
       <div className='table-name-link-area'>
         {
-          tableNames.map((tableName, index) => (
-            <a
-              key={index}
-              className='table-name-link'
-              onClick={() => setTableName(tableName.tablename)}
-            >
-              {tableName.tablename}
-            </a>
-          ))
+          tableNames.length === 0
+          ?
+            <p>テーブル名を取得中...</p>
+          :
+            tableNames.map((tableName, index) => (
+              <a
+                key={index}
+                className='table-name-link'
+                onClick={() => setTableName(tableName.tablename)}
+              >
+                {tableName.tablename}
+              </a>
+            ))
         }
       </div>
       <div className='view-area'>
-        <pre>
-          {JSON.stringify(response, null, 2)}
-        </pre>
+        {
+          response &&
+            <pre>
+              {JSON.stringify(response, null, 2)}
+            </pre>
+        }
       </div>
     </div>
   )
 
 }
-export default Page2
+export default TableViewer

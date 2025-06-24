@@ -7,6 +7,10 @@
   height: 38px;
 }
 
+.error-text {
+  margin: 0;
+}
+
 .table-name-link {
   cursor: pointer;
   padding-left: 10px;
