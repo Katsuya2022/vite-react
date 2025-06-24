@@ -44,6 +44,54 @@ const Page1 = () => {
                 <input type="email" className="form-control" id="email" />
               </div>
             </div>
+            
+            {/* 案件名 */}
+            <div className="row mb-3">
+              <label htmlFor="email" className="col-sm-3 col-form-label">案件名</label>
+              <div className="col-sm-9">
+                <input type="email" className="form-control" id="email" />
+              </div>
+            </div>
+            
+            {/* 開始日 */}
+            <div className="row mb-3">
+              <label htmlFor="email" className="col-sm-3 col-form-label">開始日</label>
+              <div className="col-sm-9">
+                <input type="email" className="form-control" id="email" />
+              </div>
+            </div>
+            
+            {/* 終了日 */}
+            <div className="row mb-3">
+              <label htmlFor="email" className="col-sm-3 col-form-label">終了日</label>
+              <div className="col-sm-9">
+                <input type="email" className="form-control" id="email" />
+              </div>
+            </div>
+            
+            {/* 案件内容 */}
+            <div className="row mb-3">
+              <label htmlFor="email" className="col-sm-3 col-form-label">案件内容</label>
+              <div className="col-sm-9">
+                <input type="email" className="form-control" id="email" />
+              </div>
+            </div>
+            
+            {/* 言語 */}
+            <div className="row mb-3">
+              <label htmlFor="email" className="col-sm-3 col-form-label">言語</label>
+              <div className="col-sm-9">
+                <input type="email" className="form-control" id="email" />
+              </div>
+            </div>
+            
+            {/* DB・FW・ツール等 */}
+            <div className="row mb-3">
+              <label htmlFor="email" className="col-sm-3 col-form-label">DB・FW・ツール等</label>
+              <div className="col-sm-9">
+                <input type="email" className="form-control" id="email" />
+              </div>
+            </div>
 
             {/* 担当工程 */}
             <fieldset className="row mb-3">
@@ -93,7 +141,7 @@ const Page1 = () => {
                 </div>
               </div>
             </fieldset>
-            <button type="submit" className="btn btn-primary">Sign in</button>
+            <button type="submit" className="btn btn-primary">保存する</button>
           </form>
         </div>
 
