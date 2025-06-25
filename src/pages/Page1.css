@@ -1,12 +1,13 @@
-#input-area {
+.left-area, .right-area {
+  /* 100vhからヘッダー58px、各要素112pxを引いた高さ */
+  height: calc(100vh - 58px - 112px);
+  overflow-y: auto;
+}
+
+.left-area {
   flex: 2;
 }
 
-#preview-area {
+.right-area {
   flex: 3;
-}
-
-.left-area, .right-area {
-  height: 520px;
-  overflow-y: auto;
 }
