@@ -5,3 +5,8 @@
 #preview-area {
   flex: 3;
 }
+
+.left-area, .right-area {
+  height: 520px;
+  overflow-y: auto;
+}
