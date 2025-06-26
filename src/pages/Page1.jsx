@@ -22,7 +22,7 @@ const Page1 = () => {
   return (
     <div className='page1'>
       <h1>Skill Sheet</h1>
-      <div className="d-flex gap-4 p-4">
+      <div className="d-flex gap-4 py-2 px-4">
         {/* 左エリア */}
         <div className='d-flex flex-column left-area'>
           {/* 基本情報 */}
@@ -83,7 +83,9 @@ const Page1 = () => {
             ))
           }
 
-          <button className='btn btn-primary rounded-circle circle-button' onClick={addProject}><AddIcon /></button>
+          <div className='d-flex justify-content-center align-items-center'>
+            <button className='btn btn-primary rounded-circle circle-button' onClick={addProject}><AddIcon /></button>
+          </div>
         </div>
 
         {/* 右エリア */}

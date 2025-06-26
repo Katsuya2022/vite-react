@@ -12,6 +12,7 @@ const ProjectForm = ({title, visible}) => {
       <div className='d-flex'>
         <h2>{title}</h2>
         <button className='btn btn-link' onClick={toggleDisplay}>{toggleText}</button>
+        <button className='btn btn-link text-danger' onClick={toggleDisplay}>削除</button>
       </div>
       {
         displayInputArea &&

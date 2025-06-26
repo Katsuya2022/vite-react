@@ -1,6 +1,6 @@
 .left-area, .right-area {
   /* 100vhからヘッダー58px、各要素112pxを引いた高さ */
-  height: calc(100vh - 58px - 112px);
+  height: calc(100vh - 58px - 92px);
   overflow-y: auto;
 }
 
