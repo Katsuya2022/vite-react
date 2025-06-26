@@ -1,15 +1,20 @@
 import { useState } from 'react'
 import ProjectForm from '../components/SkillSheet/ProjectForm';
+import AddIcon from '@mui/icons-material/Add';
 import './Page1.css'
 
 const Page1 = () => {
-  const [displayKihon, setDisplayKihon] = useState(true);
+  const [displayKihon, setDisplayKihon] = useState(false);
   const [projects, setProjects] = useState([
     {id: 'project1', title: '案件1', visible: true},
     {id: 'project2', title: '案件2', visible: true},
   ]);
   const toggleDisplay = () => {
     setDisplayKihon(!displayKihon);
+  }
+  const addProject = () => {
+    const cntProjects = projects.length + 1;
+    setProjects([...projects, {id: `project${cntProjects}`, title: `案件${cntProjects}`, visible: true}])
   }
 
   const kihonToggleText = displayKihon ? '閉じる' : '入力する';
@@ -21,7 +26,7 @@ const Page1 = () => {
         {/* 左エリア */}
         <div className='d-flex flex-column left-area'>
           {/* 基本情報 */}
-          <div id="input-area" className="p-4 rounded border border-primary  mb-4 kihon-area">
+          <div id="input-area" className="p-3 rounded border border-primary  mb-4 kihon-area">
             <div className='d-flex'>
               <h2>基本情報</h2>
               <button className='btn btn-link' onClick={toggleDisplay}>{kihonToggleText}</button>
@@ -77,6 +82,8 @@ const Page1 = () => {
               <ProjectForm key={index} title={project.title} visible={project.visible} />
             ))
           }
+
+          <button className='btn btn-primary rounded-circle circle-button' onClick={addProject}><AddIcon /></button>
         </div>
 
         {/* 右エリア */}

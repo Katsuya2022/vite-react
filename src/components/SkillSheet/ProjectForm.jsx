@@ -8,7 +8,7 @@ const ProjectForm = ({title, visible}) => {
   const toggleText = visible ? '閉じる' : '入力する';
   
   return (
-    <div id="input-area" className="p-4 rounded border border-primary mb-4">
+    <div id="input-area" className="p-3 rounded border border-primary mb-4">
       <div className='d-flex'>
         <h2>{title}</h2>
         <button className='btn btn-link' onClick={toggleDisplay}>{toggleText}</button>
@@ -42,9 +42,9 @@ const ProjectForm = ({title, visible}) => {
           
           {/* 案件内容 */}
           <div className="row mb-3">
-            <label htmlFor="email" className="col-sm-3 col-form-label">案件内容</label>
+            <label htmlFor="formControlTextarea1" className="col-sm-3 col-form-label">案件内容</label>
             <div className="col-sm-9">
-              <input type="email" className="form-control" id="email" />
+              <textarea className="form-control" id="formControlTextarea1" rows="3"></textarea>
             </div>
           </div>
           
