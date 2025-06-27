@@ -1,16 +1,35 @@
 import { useState } from 'react'
 
 const ProjectForm = ({id, title, onDeleteProject}) => {
+  const [projectInfo, setProjectInfo] = useState({
+    id: 0,
+    title: '',
+    startDate: '',
+    endDate: '',
+    projectDetail: '',
+    language: '',
+    tools: '',
+    phase: {
+      requirements: false,      // 要件定義
+      basicDesign: false,       // 基本設計
+      detailDesign: false,      // 詳細設計
+      implementation: false,    // 実装・単体
+      integrationTest: false,   // 結合テスト
+      systemTest: false,        // 総合テスト
+      maintenance: false        // 保守・運用
+    }
+  });
   const [displayInputArea, setDisplayInputArea] = useState(false);
   const toggleDisplay = () => {
     setDisplayInputArea(!displayInputArea);
   }
-  const toggleText = displayInputArea ? '閉じる' : '入力する';
+  const toggleText = displayInputArea ? '閉じる' : '編集';
+  const displayProjectTitle = projectInfo.title ? projectInfo.title : '案件名';
   
   return (
     <div id="input-area" className="p-3 rounded border border-primary mb-4">
       <div className='d-flex'>
-        <h2>{title}</h2>
+        <h2>{displayProjectTitle}</h2>
         <button className='btn btn-link' onClick={toggleDisplay}>{toggleText}</button>
         <button className='btn btn-link text-danger' onClick={() => onDeleteProject(id)}>削除</button>
       </div>
@@ -21,7 +40,15 @@ const ProjectForm = ({id, title, onDeleteProject}) => {
           <div className="row mb-3">
             <label htmlFor="email" className="col-sm-3 col-form-label">案件名</label>
             <div className="col-sm-9">
-              <input type="email" className="form-control" id="email" />
+              <input
+                type="text"
+                className="form-control"
+                id={`title-${id}`}
+                value={projectInfo.title}
+                onChange={(e) =>
+                  setProjectInfo({ ...projectInfo, title: e.target.value })
+                }
+              />
             </div>
           </div>
           

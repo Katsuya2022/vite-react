@@ -31,7 +31,7 @@ const Page1 = () => {
     setProjects(newProjects);
   }
 
-  const kihonToggleText = displayKihon ? '閉じる' : '入力する';
+  const kihonToggleText = displayKihon ? '閉じる' : '編集';
 
   return (
     <div className='page1'>
