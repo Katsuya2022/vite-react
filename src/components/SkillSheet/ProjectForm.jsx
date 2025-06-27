@@ -1,18 +1,18 @@
 import { useState } from 'react'
 
-const ProjectForm = ({title, visible}) => {
+const ProjectForm = ({id, title, onDeleteProject}) => {
   const [displayInputArea, setDisplayInputArea] = useState(false);
   const toggleDisplay = () => {
     setDisplayInputArea(!displayInputArea);
   }
-  const toggleText = visible ? '閉じる' : '入力する';
+  const toggleText = displayInputArea ? '閉じる' : '入力する';
   
   return (
     <div id="input-area" className="p-3 rounded border border-primary mb-4">
       <div className='d-flex'>
         <h2>{title}</h2>
         <button className='btn btn-link' onClick={toggleDisplay}>{toggleText}</button>
-        <button className='btn btn-link text-danger' onClick={toggleDisplay}>削除</button>
+        <button className='btn btn-link text-danger' onClick={() => onDeleteProject(id)}>削除</button>
       </div>
       {
         displayInputArea &&

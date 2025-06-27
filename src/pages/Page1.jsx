@@ -9,12 +9,26 @@ const Page1 = () => {
     {id: 'project1', title: '案件1', visible: true},
     {id: 'project2', title: '案件2', visible: true},
   ]);
+  
   const toggleDisplay = () => {
     setDisplayKihon(!displayKihon);
   }
+
   const addProject = () => {
     const cntProjects = projects.length + 1;
-    setProjects([...projects, {id: `project${cntProjects}`, title: `案件${cntProjects}`, visible: true}])
+    const newProject = {
+      id: `project${cntProjects}`,
+      title: `案件${cntProjects}`,
+      visible: true
+    }
+    setProjects([...projects, newProject]);
+  }
+
+  const deleteProject = (id) => {
+    const newProjects = projects.filter((project) => { 
+      return project.id !== id;
+    })
+    setProjects(newProjects);
   }
 
   const kihonToggleText = displayKihon ? '閉じる' : '入力する';
@@ -79,7 +93,7 @@ const Page1 = () => {
           {/* 案件 */}
           {
             projects.map((project, index) => (
-              <ProjectForm key={index} title={project.title} visible={project.visible} />
+              <ProjectForm key={index} id={project.id} title={project.title} onDeleteProject={deleteProject} />
             ))
           }
 
