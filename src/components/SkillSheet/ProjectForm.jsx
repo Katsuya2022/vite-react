@@ -1,30 +1,30 @@
 import { useState } from 'react'
 
-const ProjectForm = ({id, title, onDeleteProject}) => {
-  const [projectInfo, setProjectInfo] = useState({
-    id: 0,
-    title: '',
-    startDate: '',
-    endDate: '',
-    projectDetail: '',
-    language: '',
-    tools: '',
-    phase: {
-      requirements: false,      // 要件定義
-      basicDesign: false,       // 基本設計
-      detailDesign: false,      // 詳細設計
-      implementation: false,    // 実装・単体
-      integrationTest: false,   // 結合テスト
-      systemTest: false,        // 総合テスト
-      maintenance: false        // 保守・運用
-    }
-  });
+const ProjectForm = ({project, setProject, onDeleteProject}) => {
+  // const [project, setProject] = useState({
+  //   id: 0,
+  //   title: '',
+  //   startDate: '',
+  //   endDate: '',
+  //   projectDetail: '',
+  //   language: '',
+  //   tools: '',
+  //   phase: {
+  //     requirements: false,      // 要件定義
+  //     basicDesign: false,       // 基本設計
+  //     detailDesign: false,      // 詳細設計
+  //     implementation: false,    // 実装・単体
+  //     integrationTest: false,   // 結合テスト
+  //     systemTest: false,        // 総合テスト
+  //     maintenance: false        // 保守・運用
+  //   }
+  // });
   const [displayInputArea, setDisplayInputArea] = useState(false);
   const toggleDisplay = () => {
     setDisplayInputArea(!displayInputArea);
   }
   const toggleText = displayInputArea ? '閉じる' : '編集';
-  const displayProjectTitle = projectInfo.title ? projectInfo.title : '案件名';
+  const displayProjectTitle = project.title ? project.title : '案件名';
   
   return (
     <div id="input-area" className="p-3 rounded border border-primary mb-4">
@@ -43,10 +43,11 @@ const ProjectForm = ({id, title, onDeleteProject}) => {
               <input
                 type="text"
                 className="form-control"
-                id={`title-${id}`}
-                value={projectInfo.title}
+                id={`title-${project.id}`}
+                value={project.title}
                 onChange={(e) =>
-                  setProjectInfo({ ...projectInfo, title: e.target.value })
+                  setProject({ ...project, title: e.target.value })
+                  // project.title = e.target.value
                 }
               />
             </div>

@@ -5,10 +5,35 @@ import './Page1.css'
 
 const Page1 = () => {
   const [displayKihon, setDisplayKihon] = useState(false);
+  const [project, setProject] = useState({
+    id: 'project1',
+    title: '案件1',
+    startDate: '',
+    endDate: '',
+    projectDetail: '',
+    language: '',
+    tools: '',
+    phase: {
+      requirements: false,      // 要件定義
+      basicDesign: false,       // 基本設計
+      detailDesign: false,      // 詳細設計
+      implementation: false,    // 実装・単体
+      integrationTest: false,   // 結合テスト
+      systemTest: false,        // 総合テスト
+      maintenance: false        // 保守・運用
+    },
+    visible: true
+  });
   const [projects, setProjects] = useState([
-    {id: 'project1', title: '案件1', visible: true},
-    {id: 'project2', title: '案件2', visible: true},
+    project
+    // {id: 'project1', title: '案件1', visible: true},
+    // {id: 'project2', title: '案件2', visible: true},
   ]);
+  // setProject 関数を定義して個別プロジェクトを更新
+  const updateProject = (id, updatedProject) => {
+    const updated = projects.map(p => p.id === id ? updatedProject : p);
+    setProjects(updated);
+  };
   
   const toggleDisplay = () => {
     setDisplayKihon(!displayKihon);
@@ -93,7 +118,7 @@ const Page1 = () => {
           {/* 案件 */}
           {
             projects.map((project, index) => (
-              <ProjectForm key={index} id={project.id} title={project.title} onDeleteProject={deleteProject} />
+              <ProjectForm key={index} project={project} setProject={(updated) => updateProject(project.id, updated)} onDeleteProject={deleteProject} />
             ))
           }
 
