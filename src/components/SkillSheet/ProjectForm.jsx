@@ -31,7 +31,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
       <div className='d-flex'>
         <h2>{displayProjectTitle}</h2>
         <button className='btn btn-link' onClick={toggleDisplay}>{toggleText}</button>
-        <button className='btn btn-link text-danger' onClick={() => onDeleteProject(id)}>削除</button>
+        <button className='btn btn-link text-danger' onClick={() => onDeleteProject(project.id)}>削除</button>
       </div>
       {
         displayInputArea &&
