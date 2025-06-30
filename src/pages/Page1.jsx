@@ -26,8 +26,6 @@ const Page1 = () => {
   });
   const [projects, setProjects] = useState([
     project
-    // {id: 'project1', title: '案件1', visible: true},
-    // {id: 'project2', title: '案件2', visible: true},
   ]);
   // setProject 関数を定義して個別プロジェクトを更新
   const updateProject = (id, updatedProject) => {
@@ -42,6 +40,7 @@ const Page1 = () => {
   const addProject = () => {
     const cntProjects = projects.length + 1;
     const newProject = {
+      ...project,
       id: `project${cntProjects}`,
       title: `案件${cntProjects}`,
       visible: true
@@ -131,6 +130,11 @@ const Page1 = () => {
         <div id="preview-area" className="bg-success text-white p-4 rounded right-area">
           <h2>右エリア</h2>
           <p>ここは右側の領域です。</p>
+          {
+            projects.map((project, index) => (
+              <p key={index}>{JSON.stringify(project)}</p>
+            ))
+          }
         </div>
       </div>
     </div>

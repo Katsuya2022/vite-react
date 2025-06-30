@@ -1,24 +1,6 @@
 import { useState } from 'react'
 
 const ProjectForm = ({project, setProject, onDeleteProject}) => {
-  // const [project, setProject] = useState({
-  //   id: 0,
-  //   title: '',
-  //   startDate: '',
-  //   endDate: '',
-  //   projectDetail: '',
-  //   language: '',
-  //   tools: '',
-  //   phase: {
-  //     requirements: false,      // 要件定義
-  //     basicDesign: false,       // 基本設計
-  //     detailDesign: false,      // 詳細設計
-  //     implementation: false,    // 実装・単体
-  //     integrationTest: false,   // 結合テスト
-  //     systemTest: false,        // 総合テスト
-  //     maintenance: false        // 保守・運用
-  //   }
-  // });
   const [displayInputArea, setDisplayInputArea] = useState(false);
   const toggleDisplay = () => {
     setDisplayInputArea(!displayInputArea);
@@ -38,16 +20,15 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
         <form>
           {/* 案件名 */}
           <div className="row mb-3">
-            <label htmlFor="email" className="col-sm-3 col-form-label">案件名</label>
+            <label htmlFor={`title-${project.id}`} className="col-sm-3 col-form-label">案件名</label>
             <div className="col-sm-9">
               <input
+                id={`title-${project.id}`}
                 type="text"
                 className="form-control"
-                id={`title-${project.id}`}
                 value={project.title}
                 onChange={(e) =>
                   setProject({ ...project, title: e.target.value })
-                  // project.title = e.target.value
                 }
               />
             </div>
@@ -55,41 +36,81 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
           
           {/* 開始日 */}
           <div className="row mb-3">
-            <label htmlFor="email" className="col-sm-3 col-form-label">開始日</label>
+            <label htmlFor={`start-date-${project.id}`} className="col-sm-3 col-form-label">開始日</label>
             <div className="col-sm-9">
-              <input type="email" className="form-control" id="email" />
+              <input
+                id={`start-date-${project.id}`}
+                type="text"
+                className="form-control"
+                value={project.startDate}
+                onChange={(e) =>
+                  setProject({ ...project, startDate: e.target.value })
+                }
+              />
             </div>
           </div>
           
           {/* 終了日 */}
           <div className="row mb-3">
-            <label htmlFor="email" className="col-sm-3 col-form-label">終了日</label>
+            <label htmlFor={`end-date-${project.id}`} className="col-sm-3 col-form-label">終了日</label>
             <div className="col-sm-9">
-              <input type="email" className="form-control" id="email" />
+              <input
+                id={`end-date-${project.id}`}
+                type="text"
+                className="form-control"
+                value={project.endDaye}
+                onChange={(e) =>
+                  setProject({ ...project, endDate: e.target.value })
+                }
+              />
             </div>
           </div>
           
           {/* 案件内容 */}
           <div className="row mb-3">
-            <label htmlFor="formControlTextarea1" className="col-sm-3 col-form-label">案件内容</label>
+            <label htmlFor={`projectDetail-${project.id}`} className="col-sm-3 col-form-label">案件内容</label>
             <div className="col-sm-9">
-              <textarea className="form-control" id="formControlTextarea1" rows="3"></textarea>
+              <textarea
+                id={`projectDetail-${project.id}`}
+                className="form-control"
+                rows="3"
+                value={project.projectDetail}
+                onChange={(e) =>
+                  setProject({ ...project, projectDetail: e.target.value })
+                }
+              />
             </div>
           </div>
           
           {/* 言語 */}
           <div className="row mb-3">
-            <label htmlFor="email" className="col-sm-3 col-form-label">言語</label>
+            <label htmlFor={`language-${project.id}`} className="col-sm-3 col-form-label">言語</label>
             <div className="col-sm-9">
-              <input type="email" className="form-control" id="email" />
+              <input
+                id="language"
+                type="text"
+                className="form-control"
+                value={project.language}
+                onChange={(e) =>
+                  setProject({ ...project, language: e.target.value })
+                }
+              />
             </div>
           </div>
           
           {/* DB・FW・ツール等 */}
           <div className="row mb-3">
-            <label htmlFor="email" className="col-sm-3 col-form-label">DB・FW・ツール等</label>
+            <label htmlFor={`tools-${project.id}`} className="col-sm-3 col-form-label">DB・FW・ツール等</label>
             <div className="col-sm-9">
-              <input type="email" className="form-control" id="email" />
+              <input
+                id={`tools-${project.id}`}
+                type="text"
+                className="form-control"
+                value={project.tools}
+                onChange={(e) =>
+                  setProject({ ...project, tools: e.target.value })
+                }
+              />
             </div>
           </div>
 
@@ -98,44 +119,52 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
             <legend className="col-form-label col-sm-3 pt-0">担当工程</legend>
             <div className="col-sm-9">
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" id="gridCheck1" />
-                <label className="form-check-label" htmlFor="gridCheck1">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id={`is_requirements-${project.id}`}
+                  value={project.phase.requirements}
+                  onChange={(e) =>
+                    setProject({ ...project, phase: {...project.phase, requirements: e.target.value }})
+                  }
+                />
+                <label className="form-check-label" htmlFor={`is_requirements-${project.id}`}>
                   要件定義
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" id="gridCheck1" />
-                <label className="form-check-label" htmlFor="gridCheck1">
+                <input className="form-check-input" type="checkbox" id={`is_basic_design-${project.id}`} />
+                <label className="form-check-label" htmlFor={`is_basic_design-${project.id}`}>
                   基本設計
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" id="gridCheck1" />
-                <label className="form-check-label" htmlFor="gridCheck1">
+                <input className="form-check-input" type="checkbox" id={`is_detail_design-${project.id}`} />
+                <label className="form-check-label" htmlFor={`is_detail_design-${project.id}`}>
                   詳細設計
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" id="gridCheck1" />
-                <label className="form-check-label" htmlFor="gridCheck1">
+                <input className="form-check-input" type="checkbox" id={`is_implementation-${project.id}`} />
+                <label className="form-check-label" htmlFor={`is_implementation-${project.id}`}>
                   実装・単体
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" id="gridCheck1" />
-                <label className="form-check-label" htmlFor="gridCheck1">
+                <input className="form-check-input" type="checkbox" id={`is_integration_test-${project.id}`} />
+                <label className="form-check-label" htmlFor={`is_integration_test-${project.id}`}>
                   結合テスト
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" id="gridCheck1" />
-                <label className="form-check-label" htmlFor="gridCheck1">
+                <input className="form-check-input" type="checkbox" id={`is_system_test-${project.id}`} />
+                <label className="form-check-label" htmlFor={`is_system_test-${project.id}`}>
                   総合テスト
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" id="gridCheck1" />
-                <label className="form-check-label" htmlFor="gridCheck1">
+                <input className="form-check-input" type="checkbox" id={`is_maintenance-${project.id}`} />
+                <label className="form-check-label" htmlFor={`is_maintenance-${project.id}`}>
                   保守・運用
                 </label>
               </div>
