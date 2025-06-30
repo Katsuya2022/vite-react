@@ -125,7 +125,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                   id={`is_requirements-${project.id}`}
                   value={project.phase.requirements}
                   onChange={(e) =>
-                    setProject({ ...project, phase: {...project.phase, requirements: e.target.value }})
+                    setProject({ ...project, phase: {...project.phase, requirements: e.target.checked }})
                   }
                 />
                 <label className="form-check-label" htmlFor={`is_requirements-${project.id}`}>
