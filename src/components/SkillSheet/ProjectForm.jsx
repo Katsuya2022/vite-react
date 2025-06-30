@@ -7,6 +7,16 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
   }
   const toggleText = displayInputArea ? '閉じる' : '編集';
   const displayProjectTitle = project.title ? project.title : '案件名';
+  // 担当工程のチェックボックスに使う情報リスト
+  const PHASE_FIELDS = [
+    { key: 'requirements', label: '要件定義' },
+    { key: 'basicDesign', label: '基本設計' },
+    { key: 'detailDesign', label: '詳細設計' },
+    { key: 'implementation', label: '実装・単体' },
+    { key: 'integrationTest', label: '結合テスト' },
+    { key: 'systemTest', label: '総合テスト' },
+    { key: 'maintenance', label: '保守・運用' },
+  ];
   
   return (
     <div id="input-area" className="p-3 rounded border border-primary mb-4">
@@ -118,9 +128,27 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
           <fieldset className="row mb-3">
             <legend className="col-form-label col-sm-3 pt-0">担当工程</legend>
             <div className="col-sm-9">
+              {
+                PHASE_FIELDS.map(({key, label}) => (
+                  <div className="form-check" key={key}>
+                    <input
+                      id={`is_${key}-${project.id}`}
+                      className="form-check-input"
+                      type="checkbox"
+                      checked={project.phase[key]}
+                      onChange={(e) =>
+                        setProject({ ...project, phase: {...project.phase, [key]: e.target.checked }})
+                      }
+                    />
+                    <label className="form-check-label" htmlFor={`is_${key}-${project.id}`}>
+                      {label}
+                    </label>
+                  </div>
+                ))
+              }
 
               {/* 要件定義 */}
-              <div className="form-check">
+              {/* <div className="form-check">
                 <input
                   id={`is_requirements-${project.id}`}
                   className="form-check-input"
@@ -133,10 +161,10 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 <label className="form-check-label" htmlFor={`is_requirements-${project.id}`}>
                   要件定義
                 </label>
-              </div>
+              </div> */}
 
               {/* 基本設計 */}
-              <div className="form-check">
+              {/* <div className="form-check">
                 <input
                   id={`is_basic_design-${project.id}`}
                   className="form-check-input"
@@ -149,10 +177,10 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 <label className="form-check-label" htmlFor={`is_basic_design-${project.id}`}>
                   基本設計
                 </label>
-              </div>
+              </div> */}
 
               {/* 詳細設計 */}
-              <div className="form-check">
+              {/* <div className="form-check">
                 <input
                   id={`is_detail_design-${project.id}`}
                   className="form-check-input"
@@ -165,10 +193,10 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 <label className="form-check-label" htmlFor={`is_detail_design-${project.id}`}>
                   詳細設計
                 </label>
-              </div>
+              </div> */}
 
               {/* 実装・単体 */}
-              <div className="form-check">
+              {/* <div className="form-check">
                 <input
                   id={`is_implementation-${project.id}`}
                   className="form-check-input"
@@ -181,10 +209,10 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 <label className="form-check-label" htmlFor={`is_implementation-${project.id}`}>
                   実装・単体
                 </label>
-              </div>
+              </div> */}
 
               {/* 結合テスト */}
-              <div className="form-check">
+              {/* <div className="form-check">
                 <input
                   id={`is_integration_test-${project.id}`}
                   className="form-check-input"
@@ -197,10 +225,10 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 <label className="form-check-label" htmlFor={`is_integration_test-${project.id}`}>
                   結合テスト
                 </label>
-              </div>
+              </div> */}
 
               {/* 総合テスト */}
-              <div className="form-check">
+              {/* <div className="form-check">
                 <input
                   id={`is_system_test-${project.id}`}
                   className="form-check-input"
@@ -213,10 +241,10 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 <label className="form-check-label" htmlFor={`is_system_test-${project.id}`}>
                   総合テスト
                 </label>
-              </div>
+              </div> */}
 
               {/* 保守・運用 */}
-              <div className="form-check">
+              {/* <div className="form-check">
                 <input
                   id={`is_maintenance-${project.id}`}
                   className="form-check-input"
@@ -229,7 +257,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 <label className="form-check-label" htmlFor={`is_maintenance-${project.id}`}>
                   保守・運用
                 </label>
-              </div>
+              </div> */}
             </div>
           </fieldset>
           <button type="submit" className="btn btn-primary">保存する</button>
