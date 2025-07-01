@@ -2,12 +2,15 @@ import { useState } from 'react'
 
 const ProjectForm = ({project, setProject, onDeleteProject}) => {
   const [displayInputArea, setDisplayInputArea] = useState(false);
+  /** フォームの表示非表示を切り替える */
   const toggleDisplay = () => {
     setDisplayInputArea(!displayInputArea);
   }
+  /** フォームの表示非表示を切り替えるリンクのテキスト */
   const toggleText = displayInputArea ? '閉じる' : '編集';
+  /** 表示用案件名 案件名が未入力の場合はデフォルトの"案件名"を返す */
   const displayProjectTitle = project.title ? project.title : '案件名';
-  // 担当工程のチェックボックスに使う情報リスト
+  /** 担当工程のチェックボックスに使う情報リスト */
   const PHASE_FIELDS = [
     { key: 'requirements', label: '要件定義' },
     { key: 'basicDesign', label: '基本設計' },
@@ -17,6 +20,41 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
     { key: 'systemTest', label: '総合テスト' },
     { key: 'maintenance', label: '保守・運用' },
   ];
+
+  const handleSubmit = ((e) => {
+    e.preventDefault();
+    checkDate();
+    if(!isAtLeastOnePhaseChecked) {
+      alert('担当工程を1つ以上選択してください')
+    }
+  });
+  const checkDate = () => {
+    if (!project.startDate) {
+      alert('開始日を入力してください');
+      return;
+    }
+    if (!project.endDate) {
+      alert('終了日を入力してください');
+      return;
+    }
+
+    const start = new Date(project.startDate);
+    const end = new Date(project.endDate);
+    if (end < start) {
+      alert('終了日は開始日以降の日付を入力してください');
+      return;
+    }
+
+    // 経過月数の計算
+    const years = end.getFullYear() - start.getFullYear();
+    // 月の計算は開始日は月初、終了日は月末と考え、差分の計算後＋１する
+    const months = end.getMonth() - start.getMonth() + 1;
+    const totalText = `${years}年${months}ヶ月`;
+
+    alert(totalText);
+  }
+  /** 担当工程に1つ以上チェックが入っているか */
+  const isAtLeastOnePhaseChecked = Object.values(project.phase).some(v => v);
   
   return (
     <div id="input-area" className="p-3 rounded border border-primary mb-4">
@@ -27,7 +65,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
       </div>
       {
         displayInputArea &&
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* 案件名 */}
           <div className="row mb-3">
             <label htmlFor={`title-${project.id}`} className="col-sm-3 col-form-label">案件名</label>
@@ -40,6 +78,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 onChange={(e) =>
                   setProject({ ...project, title: e.target.value })
                 }
+                required
               />
             </div>
           </div>
@@ -50,12 +89,13 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
             <div className="col-sm-9">
               <input
                 id={`start-date-${project.id}`}
-                type="text"
+                type="month"
                 className="form-control"
                 value={project.startDate}
                 onChange={(e) =>
                   setProject({ ...project, startDate: e.target.value })
                 }
+                required
               />
             </div>
           </div>
@@ -66,12 +106,13 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
             <div className="col-sm-9">
               <input
                 id={`end-date-${project.id}`}
-                type="text"
+                type="month"
                 className="form-control"
                 value={project.endDaye}
                 onChange={(e) =>
                   setProject({ ...project, endDate: e.target.value })
                 }
+                required
               />
             </div>
           </div>
@@ -88,6 +129,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 onChange={(e) =>
                   setProject({ ...project, projectDetail: e.target.value })
                 }
+                required
               />
             </div>
           </div>
@@ -104,6 +146,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 onChange={(e) =>
                   setProject({ ...project, language: e.target.value })
                 }
+                required
               />
             </div>
           </div>
@@ -146,118 +189,6 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                   </div>
                 ))
               }
-
-              {/* 要件定義 */}
-              {/* <div className="form-check">
-                <input
-                  id={`is_requirements-${project.id}`}
-                  className="form-check-input"
-                  type="checkbox"
-                  value={project.phase.requirements}
-                  onChange={(e) =>
-                    setProject({ ...project, phase: {...project.phase, requirements: e.target.checked }})
-                  }
-                />
-                <label className="form-check-label" htmlFor={`is_requirements-${project.id}`}>
-                  要件定義
-                </label>
-              </div> */}
-
-              {/* 基本設計 */}
-              {/* <div className="form-check">
-                <input
-                  id={`is_basic_design-${project.id}`}
-                  className="form-check-input"
-                  type="checkbox"
-                  value={project.phase.basicDesign}
-                  onChange={(e) =>
-                    setProject({ ...project, phase: {...project.phase, basicDesign: e.target.checked }})
-                  }
-                />
-                <label className="form-check-label" htmlFor={`is_basic_design-${project.id}`}>
-                  基本設計
-                </label>
-              </div> */}
-
-              {/* 詳細設計 */}
-              {/* <div className="form-check">
-                <input
-                  id={`is_detail_design-${project.id}`}
-                  className="form-check-input"
-                  type="checkbox"
-                  value={project.phase.detailDesign}
-                  onChange={(e) =>
-                    setProject({ ...project, phase: {...project.phase, detailDesign: e.target.checked }})
-                  }
-                />
-                <label className="form-check-label" htmlFor={`is_detail_design-${project.id}`}>
-                  詳細設計
-                </label>
-              </div> */}
-
-              {/* 実装・単体 */}
-              {/* <div className="form-check">
-                <input
-                  id={`is_implementation-${project.id}`}
-                  className="form-check-input"
-                  type="checkbox"
-                  value={project.phase.implementation}
-                  onChange={(e) =>
-                    setProject({ ...project, phase: {...project.phase, implementation: e.target.checked }})
-                  }
-                />
-                <label className="form-check-label" htmlFor={`is_implementation-${project.id}`}>
-                  実装・単体
-                </label>
-              </div> */}
-
-              {/* 結合テスト */}
-              {/* <div className="form-check">
-                <input
-                  id={`is_integration_test-${project.id}`}
-                  className="form-check-input"
-                  type="checkbox"
-                  value={project.phase.integrationTest}
-                  onChange={(e) =>
-                    setProject({ ...project, phase: {...project.phase, integrationTest: e.target.checked }})
-                  }
-                />
-                <label className="form-check-label" htmlFor={`is_integration_test-${project.id}`}>
-                  結合テスト
-                </label>
-              </div> */}
-
-              {/* 総合テスト */}
-              {/* <div className="form-check">
-                <input
-                  id={`is_system_test-${project.id}`}
-                  className="form-check-input"
-                  type="checkbox"
-                  value={project.phase.systemTest}
-                  onChange={(e) =>
-                    setProject({ ...project, phase: {...project.phase, systemTest: e.target.checked }})
-                  }
-                />
-                <label className="form-check-label" htmlFor={`is_system_test-${project.id}`}>
-                  総合テスト
-                </label>
-              </div> */}
-
-              {/* 保守・運用 */}
-              {/* <div className="form-check">
-                <input
-                  id={`is_maintenance-${project.id}`}
-                  className="form-check-input"
-                  type="checkbox"
-                  value={project.phase.maintenance}
-                  onChange={(e) =>
-                    setProject({ ...project, phase: {...project.phase, maintenance: e.target.checked }})
-                  }
-                />
-                <label className="form-check-label" htmlFor={`is_maintenance-${project.id}`}>
-                  保守・運用
-                </label>
-              </div> */}
             </div>
           </fieldset>
           <button type="submit" className="btn btn-primary">保存する</button>
