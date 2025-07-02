@@ -131,85 +131,79 @@ const Page1 = () => {
           <h2>右エリア</h2>
           <p>ここは右側の領域です。</p>
           <div className='d-flex'>
-            <table class="table table-bordered table-sm">
+            <table class="table table-bordered table-sm mb-1">
               <tbody>
                 <tr>
                   <th scope="row" class="bg-primary">フリガナ</th>
-                  <td>BBB</td>
-                  <td>CCC</td>
-                  <td>DDD</td>
-                  <td>EEE</td>
+                  <td>AAA</td>
                 </tr>
                 <tr>
                   <th scope="row" class="bg-primary">氏名</th>
-                  <td>BBB</td>
-                  <td>CCC</td>
-                  <td>DDD</td>
-                  <td>EEE</td>
+                  <td>AAA</td>
                 </tr>
                 <tr>
                   <th scope="row" class="bg-primary">最寄駅</th>
-                  <td>BBB</td>
-                  <td>CCC</td>
-                  <td>DDD</td>
-                  <td>EEE</td>
+                  <td>AAA</td>
                 </tr>
                 <tr>
                   <th scope="row" class="bg-primary">稼働</th>
-                  <td>BBB</td>
-                  <td>CCC</td>
-                  <td>DDD</td>
-                  <td>EEE</td>
+                  <td>AAA</td>
                 </tr>
                 <tr>
                   <th scope="row" class="bg-primary">資格</th>
-                  <td>BBB</td>
-                  <td>CCC</td>
-                  <td>DDD</td>
-                  <td>EEE</td>
+                  <td>AAA</td>
                 </tr>
               </tbody>
             </table>
-            <table class="table table-bordered table-sm">
+            <table class="table table-bordered table-sm mb-1">
               <tbody>
                 <tr>
                   <th scope="row" class="bg-primary">所属</th>
-                  <td>BBB</td>
-                  <td>CCC</td>
-                  <td>DDD</td>
-                  <td>EEE</td>
+                  <td>AAA</td>
                 </tr>
                 <tr>
                   <th scope="row" class="bg-primary">性別</th>
-                  <td>BBB</td>
-                  <td>CCC</td>
-                  <td>DDD</td>
-                  <td>EEE</td>
+                  <td>AAA</td>
                 </tr>
                 <tr>
                   <th scope="row" class="bg-primary">年齢</th>
-                  <td>BBB</td>
-                  <td>CCC</td>
-                  <td>DDD</td>
-                  <td>EEE</td>
+                  <td>AAA</td>
                 </tr>
                 <tr>
                   <th scope="row" class="bg-primary">配偶者</th>
-                  <td>BBB</td>
-                  <td>CCC</td>
-                  <td>DDD</td>
-                  <td>EEE</td>
+                  <td>AAA</td>
                 </tr>
                 <tr>
                   <th scope="row" class="bg-primary">学歴</th>
-                  <td>BBB</td>
-                  <td>CCC</td>
-                  <td>DDD</td>
-                  <td>EEE</td>
+                  <td>AAA</td>
                 </tr>
               </tbody>
             </table>
           </div>
+          <table class="table table-bordered table-sm mb-1">
+            <tbody>
+              <tr>
+                <th scope="row" class="bg-primary">得意分野</th>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" class="bg-primary">得意技術</th>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" class="bg-primary">得意業務</th>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table table-bordered table-sm mb-1">
+            <tbody>
+              <tr>
+                <th scope="row" class="bg-primary">自己PR</th>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
           {
             projects.map((project, index) => (
               <p key={index}>{JSON.stringify(project)}</p>
