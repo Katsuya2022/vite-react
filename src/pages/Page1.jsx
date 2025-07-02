@@ -130,6 +130,86 @@ const Page1 = () => {
         <div id="preview-area" className="bg-success text-white p-4 rounded right-area">
           <h2>右エリア</h2>
           <p>ここは右側の領域です。</p>
+          <div className='d-flex'>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th scope="row">AAA</th>
+                  <td>BBB</td>
+                  <td>CCC</td>
+                  <td>DDD</td>
+                  <td>EEE</td>
+                </tr>
+                <tr>
+                  <th scope="row">AAA</th>
+                  <td>BBB</td>
+                  <td>CCC</td>
+                  <td>DDD</td>
+                  <td>EEE</td>
+                </tr>
+                <tr>
+                  <th scope="row">AAA</th>
+                  <td>BBB</td>
+                  <td>CCC</td>
+                  <td>DDD</td>
+                  <td>EEE</td>
+                </tr>
+                <tr>
+                  <th scope="row">AAA</th>
+                  <td>BBB</td>
+                  <td>CCC</td>
+                  <td>DDD</td>
+                  <td>EEE</td>
+                </tr>
+                <tr>
+                  <th scope="row">AAA</th>
+                  <td>BBB</td>
+                  <td>CCC</td>
+                  <td>DDD</td>
+                  <td>EEE</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th scope="row">AAA</th>
+                  <td>BBB</td>
+                  <td>CCC</td>
+                  <td>DDD</td>
+                  <td>EEE</td>
+                </tr>
+                <tr>
+                  <th scope="row">AAA</th>
+                  <td>BBB</td>
+                  <td>CCC</td>
+                  <td>DDD</td>
+                  <td>EEE</td>
+                </tr>
+                <tr>
+                  <th scope="row">AAA</th>
+                  <td>BBB</td>
+                  <td>CCC</td>
+                  <td>DDD</td>
+                  <td>EEE</td>
+                </tr>
+                <tr>
+                  <th scope="row">AAA</th>
+                  <td>BBB</td>
+                  <td>CCC</td>
+                  <td>DDD</td>
+                  <td>EEE</td>
+                </tr>
+                <tr>
+                  <th scope="row">AAA</th>
+                  <td>BBB</td>
+                  <td>CCC</td>
+                  <td>DDD</td>
+                  <td>EEE</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           {
             projects.map((project, index) => (
               <p key={index}>{JSON.stringify(project)}</p>
