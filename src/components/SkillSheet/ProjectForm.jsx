@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import './ProjectForm.css';
 
 const ProjectForm = ({project, setProject, onDeleteProject}) => {
   const [displayInputArea, setDisplayInputArea] = useState(false);
@@ -10,6 +11,14 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
   const toggleText = displayInputArea ? '閉じる' : '編集';
   /** 表示用案件名 案件名が未入力の場合はデフォルトの"案件名"を返す */
   const displayProjectTitle = project.title ? project.title : '案件名';
+  /** 終了日の表示非表示 */
+  const [isEndDateDisabled, setIsEndDateDisabled] = useState(true);
+  const PROJECT_DETAIL_TEMPLATE = `≪担当業務≫
+
+≪習得スキル≫
+
+≪コメント≫
+`
   /** 担当工程のチェックボックスに使う情報リスト */
   const PHASE_FIELDS = [
     { key: 'requirements', label: '要件定義' },
@@ -53,9 +62,19 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
 
     alert(totalText);
   }
+
   /** 担当工程に1つ以上チェックが入っているか */
   const isAtLeastOnePhaseChecked = Object.values(project.phase).some(v => v);
-  
+
+  useEffect(() => {
+    if (project.startDate === '') {
+      setProject({ ...project, endDate: '' });
+      setIsEndDateDisabled(true);
+    } else {
+      setIsEndDateDisabled(false);
+    }
+  }, [project.startDate])
+
   return (
     <div id="input-area" className="p-3 rounded border border-primary mb-4">
       <div className='d-flex'>
@@ -96,6 +115,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                   setProject({ ...project, startDate: e.target.value })
                 }
                 required
+                max={project.endDate}
               />
             </div>
           </div>
@@ -108,22 +128,26 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 id={`end-date-${project.id}`}
                 type="month"
                 className="form-control"
-                value={project.endDaye}
+                value={project.endDate}
                 onChange={(e) =>
                   setProject({ ...project, endDate: e.target.value })
                 }
                 required
+                min={project.startDate}
+                disabled={isEndDateDisabled}
               />
             </div>
           </div>
           
           {/* 案件内容 */}
           <div className="row mb-3">
-            <label htmlFor={`projectDetail-${project.id}`} className="col-sm-3 col-form-label">案件内容</label>
+            <label htmlFor={`projectDetail-${project.id}`} className="col-sm-3 col-form-label">案件内容<br />
+              <button type='button' className='btn btn-link add-project-template-btn' onClick={() => setProject({...project, projectDetail: PROJECT_DETAIL_TEMPLATE})}>雛形を追加</button>
+            </label>
             <div className="col-sm-9">
               <textarea
                 id={`projectDetail-${project.id}`}
-                className="form-control"
+                className="form-control projectDetail"
                 rows="3"
                 value={project.projectDetail}
                 onChange={(e) =>
