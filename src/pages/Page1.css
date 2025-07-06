@@ -20,7 +20,7 @@
   padding: 0;
 }
 
-table {
+table.project-table {
   border: #333 solid 2px !important;
 }
 

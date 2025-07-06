@@ -158,7 +158,7 @@ const Page1 = () => {
           <h2 className='text-center'>スキルシート</h2>
           <div className='d-flex'>
             {/* 基本情報テーブル（左） */}
-            <table className="table table-bordered table-sm mb-1 kihon-left-table">
+            <table className="table table-bordered table-sm mb-1 kihon-left-table project-table">
               <tbody>
                 <tr>
                   <th scope="row" className="bg-th">フリガナ</th>
@@ -183,7 +183,7 @@ const Page1 = () => {
               </tbody>
             </table>
             {/* 基本情報テーブル（右） */}
-            <table className="table table-bordered table-sm mb-1">
+            <table className="table table-bordered table-sm mb-1 project-table">
               <tbody>
                 <tr>
                   <th scope="row" className="bg-th">所属</th>
@@ -210,7 +210,7 @@ const Page1 = () => {
           </div>
 
           {/* 得意分野テーブル */}
-          <table className="table table-bordered table-sm mb-1">
+          <table className="table table-bordered table-sm mb-1 project-table">
             <tbody>
               <tr>
                 <th scope="row" className="bg-th">得意分野</th>
@@ -228,7 +228,7 @@ const Page1 = () => {
           </table>
 
           {/* 自己PRテーブル */}
-          <table className="table table-bordered table-sm mb-1">
+          <table className="table table-bordered table-sm mb-1 project-table">
             <tbody>
               <tr>
                 <th scope="row" className="bg-th">自己PR</th>
@@ -238,7 +238,7 @@ const Page1 = () => {
           </table>
 
           {/* 案件テーブル */}
-          <table className="table table-bordered table-sm mb-1">
+          <table className="table table-bordered table-sm mb-1 project-table">
             <thead>
               <tr>
                 <th className="bg-th project-header" rowSpan={2} colSpan={4} style={{ width: '20%' }}>期間</th>
