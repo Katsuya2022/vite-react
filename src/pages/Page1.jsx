@@ -84,6 +84,10 @@ const Page1 = () => {
 
   const kihonToggleText = displayKihon ? '閉じる' : '編集';
 
+  const dispPhaseIcon = (phase) => {
+    return phase ? '●' : '';
+  }
+
   return (
     <div className='page1'>
       <h1>Skill Sheet</h1>
@@ -301,13 +305,13 @@ const Page1 = () => {
                           A5M2
                         </span>
                       </td>
-                      <td rowSpan={2}>●</td>
-                      <td rowSpan={2}>●</td>
-                      <td rowSpan={2}>●</td>
-                      <td rowSpan={2}>●</td>
-                      <td rowSpan={2}>●</td>
-                      <td rowSpan={2}>●</td>
-                      <td rowSpan={2}></td>
+                      <td rowSpan={2}>{dispPhaseIcon(project.phase.requirements)}</td>
+                      <td rowSpan={2}>{dispPhaseIcon(project.phase.basicDesign)}</td>
+                      <td rowSpan={2}>{dispPhaseIcon(project.phase.detailDesign)}</td>
+                      <td rowSpan={2}>{dispPhaseIcon(project.phase.implementation)}</td>
+                      <td rowSpan={2}>{dispPhaseIcon(project.phase.integrationTest)}</td>
+                      <td rowSpan={2}>{dispPhaseIcon(project.phase.systemTest)}</td>
+                      <td rowSpan={2}>{dispPhaseIcon(project.phase.maintenance)}</td>
                     </tr>
                     <tr>
                       <td colSpan={3}>{calcElapsedPeriod(project.startDate, project.endDate)}</td>
