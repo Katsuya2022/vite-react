@@ -26,7 +26,6 @@ const Todo = () => {
     if (error) {
       console.error(error);
     } else {
-      console.log(data);
       setResponse(data);
       setDisplayTodos(isHideCompletedTodo ? data.filter(todo => !todo.isCompleted) : data);
     }

@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home.jsx"; // Home.jsxの読み込み
+import ProtectedRoute from './components/ProtectedRoute';
+import Login from "./pages/Login.jsx";
+import Home from "./pages/Home.jsx";
 import Page1 from "./pages/Page1.jsx";
 import TableViewer from "./pages/TableViewer.jsx";
 import Todo from "./pages/Todo.jsx";
@@ -14,10 +16,14 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<AppLayout />}>
           <Route index element={<Home />} />
-          <Route path="/page1" element={<Page1 />} />
-          <Route path="/TableViewer" element={<TableViewer />} />
-          <Route path="/todo" element={<Todo />} />
-          <Route path="*" element={<NoMatch />} />
+          <Route path="login" element={<Login />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="page1" element={<Page1 />} />
+            <Route path="TableViewer" element={<TableViewer />} />
+            <Route path="todo" element={<Todo />} />
+            <Route path="*" element={<NoMatch />} />
+          </Route>
         </Route>
       </Routes>
     </div>
