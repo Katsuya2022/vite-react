@@ -1,13 +1,18 @@
-import { supabase } from '../../lib/supabase';
+// import { supabase } from '../../lib/supabase';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginButton = () => {
-  const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email: 'example@example.com',
-      password: 'yourpassword',
-    });
-    if (error) console.error(error.message);
-  };
+  const  navigate = useNavigate();
+  const changePage = (page) => {
+    navigate(page);
+  }
+  // const handleLogin = async () => {
+  //   const { error } = await supabase.auth.signInWithPassword({
+  //     email: 'example@example.com',
+  //     password: 'yourpassword',
+  //   });
+  //   if (error) console.error(error.message);
+  // };
 
-  return <button className='btn btn-success' onClick={handleLogin}>ログイン</button>;
+  return <button className='btn btn-success' onClick={() => changePage('/login')}>ログイン</button>;
 };

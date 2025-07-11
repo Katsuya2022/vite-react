@@ -7,6 +7,7 @@ import TableViewer from "./pages/TableViewer.jsx";
 import Todo from "./pages/Todo.jsx";
 import NoMatch from "./pages/NoMatch.js";
 import AppLayout from "./components/Layout/AppLayout.jsx";
+import SignUp from "./pages/SignUp.jsx";
 
 import './Routes.css';
 
@@ -17,10 +18,11 @@ export const AppRoutes = () => {
         <Route path="/" element={<AppLayout />}>
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path="page1" element={<Page1 />} />
-            <Route path="TableViewer" element={<TableViewer />} />
+            <Route path="tableviewer" element={<TableViewer />} />
             <Route path="todo" element={<Todo />} />
             <Route path="*" element={<NoMatch />} />
           </Route>

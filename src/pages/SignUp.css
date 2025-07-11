@@ -1,0 +1,11 @@
+.wrapper {
+  /* max-height: 476px; */
+  /* 100vhからヘッダーの58pxを引いた高さ */
+  height: calc(100vh - 58px - 200px);
+  overflow-y: auto;
+}
+
+.signup-form {
+  width: 50%;
+  min-width: 300px;
+}
