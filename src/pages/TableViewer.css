@@ -5,6 +5,11 @@
 
 .table-name-input {
   height: 38px;
+  width: 360px;
+}
+
+.table-name-input::placeholder {
+  color: #dddddd;
 }
 
 .error-text {

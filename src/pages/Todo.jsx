@@ -2,14 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import './Todo.css'
+import { useToast } from '../components/Toast/Toast';
 
 const Todo = () => {
   const [response, setResponse] = useState(null);
   const [displayTodos, setDisplayTodos] = useState([]);
   const [todo, setTodo] = useState('');
-  const [errorText, setErrorText] = useState('');
   const [isHideCompletedTodo, setIsHideCompletedTodo] = useState(false);
   const TODO_MAX_LENGTH = 140;
+
+    // トーストコンポーネントを使用する準備
+  const {showToast} = useToast();
 
   /**
    * 初期表示時のTodo情報を取得する処理を呼び出す
@@ -26,7 +29,6 @@ const Todo = () => {
     if (error) {
       console.error(error);
     } else {
-      console.log(data);
       setResponse(data);
       setDisplayTodos(isHideCompletedTodo ? data.filter(todo => !todo.isCompleted) : data);
     }
@@ -37,14 +39,22 @@ const Todo = () => {
    */
   const registTodo = async () => {
     if (todo === '') {
-      setErrorText('Todoを入力してください。');
+      showToast({
+        title: 'エラー',
+        message: 'Todoを入力してください。',
+        type: 'danger',
+      });
       return;
     }
     const { error } = await supabase.from('todos').insert({title: todo});
     if (error) {
-      setErrorText(error.message);
+      console.error(error.message);
+      showToast({
+        title: 'エラー',
+        message: 'Todoを入力してください。',
+        type: 'danger',
+      });
     } else {
-      setErrorText('');
       setTodo('');
       fetchData();
     }
@@ -116,7 +126,6 @@ const Todo = () => {
           <label className="form-check-label" htmlFor="flexSwitchCheckDefault">完了したTodoを非表示にする</label>
         </div>
       </div>
-      <p className='text-danger'>{errorText}</p>
       {
         !response
         ? 
