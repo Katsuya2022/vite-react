@@ -59,7 +59,7 @@ const TableViewer = () => {
 
   /** 検索を実行する */
   const handleSubmit = (e) => {
-    e.preventDefault(); // ← Enter キーでページ遷移しないようにする
+    e.preventDefault();
     fetchData();
   }
 
@@ -67,7 +67,10 @@ const TableViewer = () => {
     <div className='tableViewer'>
       <h1>データ確認</h1>
       <div className='controll-area'>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          fetchData();
+        }}>
           <input
             id="table-name"
             className='table-name-input'
@@ -76,7 +79,7 @@ const TableViewer = () => {
             value={tableName}
             onChange={(e) => setTableName(e.target.value)}
             />
-          <button type='submit' className='btn btn-primary' onClick={fetchData}>検索</button>
+          <button type='button' className='btn btn-primary' onClick={fetchData}>検索</button>
         </form>
       </div>
       <div className='table-name-link-area'>

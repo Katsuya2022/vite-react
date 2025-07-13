@@ -104,6 +104,10 @@ const Todo = () => {
     <div className='Todo'>
       <h1>Todo</h1>
       <div className='controll-area'>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          registTodo();
+        }}>
         <input
           id="todo"
           className='todo-input'
@@ -113,7 +117,8 @@ const Todo = () => {
           value={todo}
           onChange={(e) => {setTodo(e.target.value)}}
         />
-        <button className='btn btn-primary' onClick={() => registTodo()}>登録</button>
+        <button type='button' className='btn btn-primary' onClick={registTodo}>登録</button>
+        </form>
         <div className="form-check form-switch  switch-btn">
           <input
             className="form-check-input"
