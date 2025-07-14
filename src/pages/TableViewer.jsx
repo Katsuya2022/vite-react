@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import './TableViewer.css'
+import { useToast } from '../components/Toast/Toast';
 
 const TableViewer = () => {
   const [tableNames, setTableNames] = useState([]);
   const [response, setResponse] = useState(null);
   const [tableName, setTableName] = useState('');
-  const [errorText, setErrorText] = useState('');
+
+  // トーストコンポーネントを使用する準備
+  const {showToast} = useToast();
 
   /**
    * 初期表示時のTodo情報を取得する処理を呼び出す
@@ -33,23 +36,30 @@ const TableViewer = () => {
    */
   const fetchData = async () => {
     if (tableName === '') {
-      setErrorText('テーブル名を入力してください。');
+      showToast({
+          title: 'エラー',
+          message: 'テーブル名を入力してください。',
+          type: 'danger',
+      });
       return;
     }
     const { data, error } = await supabase.from(tableName).select().order('id', {ascending: true});
     if (error) {
       console.error(error);
       setResponse(null);
-      setErrorText('対象テーブルが取得できませんでした。')
+      showToast({
+          title: 'エラー',
+          message: '対象テーブルが取得できませんでした。',
+          type: 'danger',
+      });
     } else {
-      setErrorText('')
       setResponse(data);
     }
   };
 
   /** 検索を実行する */
   const handleSubmit = (e) => {
-    e.preventDefault(); // ← Enter キーでページ遷移しないようにする
+    e.preventDefault();
     fetchData();
   }
 
@@ -57,7 +67,10 @@ const TableViewer = () => {
     <div className='tableViewer'>
       <h1>データ確認</h1>
       <div className='controll-area'>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          fetchData();
+        }}>
           <input
             id="table-name"
             className='table-name-input'
@@ -66,10 +79,9 @@ const TableViewer = () => {
             value={tableName}
             onChange={(e) => setTableName(e.target.value)}
             />
-          <button type='submit' className='btn btn-primary' onClick={fetchData}>検索</button>
+          <button type='button' className='btn btn-primary' onClick={fetchData}>検索</button>
         </form>
       </div>
-      <p className='error-text text-danger'>{errorText}</p>
       <div className='table-name-link-area'>
         {
           tableNames.length === 0
