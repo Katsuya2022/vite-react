@@ -29,7 +29,7 @@ const Header = () => {
                 <li key={index} className='nav-item' role="button">
                   <a className="nav-link" aria-current="page" onClick={() => changePage(item.link)}>{item.text}</a>
                 </li>
-             ))
+              ))
             }
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

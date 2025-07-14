@@ -26,7 +26,7 @@ const Login = () => {
 
   return (
     <div className='login'>
-      <h2 className="mb-4">ログイン</h2>
+      <h1>ログイン</h1>
       {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
       <form onSubmit={handleLogin}>
         <div className="mb-3">

@@ -22,9 +22,9 @@ export const AppRoutes = () => {
           <Route path="signup" element={<SignUp />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="page1" element={<Page1 />} />
             <Route path="todo" element={<Todo />} />
-            <Route path="TableViewer" element={<TableViewer />} />
+            <Route path="page1" element={<Page1 />} />
+            <Route path="tableviewer" element={<TableViewer />} />
             <Route path="*" element={<NoMatch />} />
           </Route>
         </Route>

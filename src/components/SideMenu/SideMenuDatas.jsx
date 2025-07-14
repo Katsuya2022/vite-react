@@ -23,7 +23,7 @@ const SideMenuDatas = [
   {
     text: 'TableViewer',
     icon: <StorageIcon />,
-    link: 'TableViewer'
+    link: '/TableViewer'
   },
 ];
 
