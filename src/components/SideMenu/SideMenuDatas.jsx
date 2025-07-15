@@ -8,22 +8,26 @@ const SideMenuDatas = [
   {
     text: 'Home',
     icon: <HomeIcon />,
-    link: '/'
+    link: '/',
+    devOnly: false,
   },
   {
     text: 'Todo',
     icon: <TaskAltIcon />,
-    link: '/todo'
+    link: '/todo',
+    devOnly: false,
   },
   {
     text: 'Page1',
     icon: <DescriptionIcon />,
-    link: '/page1'
+    link: '/page1',
+    devOnly: false,
   },
   {
     text: 'TableViewer',
     icon: <StorageIcon />,
-    link: '/TableViewer'
+    link: '/TableViewer',
+    devOnly: true,
   },
 ];
 
