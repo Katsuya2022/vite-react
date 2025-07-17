@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
+import './Login.css'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -54,8 +55,8 @@ const Login = () => {
         </div>
 
         <button type="submit" className="btn btn-primary w-100">ログイン</button>
+        <button type='button' className='btn btn-link' onClick={() => navigate('/signup')}>新規登録はこちら</button>
       </form>
-      <button className='btn btn-link' onClick={() => navigate('/signup')}>新規登録はこちら</button>
     </div>
   );
 };

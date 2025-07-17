@@ -4,13 +4,19 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import DescriptionIcon from '@mui/icons-material/Description';
 import StorageIcon from '@mui/icons-material/Storage';
 
-const SideMenuDatas = [
+/** ホームのみのメニューリスト */
+export const HOME_MENU = [
   {
     text: 'Home',
     icon: <HomeIcon />,
     link: '/',
     devOnly: false,
   },
+]
+
+/** 一般ユーザー用のメニューリスト */
+export const USER_MENU = [
+  ...HOME_MENU,
   {
     text: 'Todo',
     icon: <TaskAltIcon />,
@@ -23,6 +29,11 @@ const SideMenuDatas = [
     link: '/page1',
     devOnly: false,
   },
+]
+
+/** 開発者用のメニューリスト */
+export const DEVELOPER_MENU = [
+  ...USER_MENU,
   {
     text: 'TableViewer',
     icon: <StorageIcon />,
@@ -30,5 +41,3 @@ const SideMenuDatas = [
     devOnly: true,
   },
 ];
-
-export default SideMenuDatas;

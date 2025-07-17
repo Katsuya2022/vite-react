@@ -84,21 +84,21 @@ const SignUp = () => {
       <form onSubmit={handleSignUp}>
         {/* メール / パスワード */}
         <div className="mb-3">
-          <label className="form-label">メールアドレス（必須）</label>
+          <label className="form-label">メールアドレス<span className='text-danger'>（必須）</span></label>
           <input type="email" className="form-control" name="email" required value={form.email} onChange={handleChange} />
         </div>
         <div className="mb-3">
-          <label className="form-label">パスワード（必須）</label>
+          <label className="form-label">パスワード<span className='text-danger'>（必須）</span></label>
           <input type="password" className="form-control" name="password" required minLength={6} value={form.password} onChange={handleChange} />
         </div>
 
         {/* 基本情報 */}
         <div className="mb-3">
-          <label className="form-label">名前（必須）</label>
+          <label className="form-label">名前<span className='text-danger'>（必須）</span></label>
           <input type="text" className="form-control" name="name" required value={form.name} onChange={handleChange} />
         </div>
         <div className="mb-3">
-          <label className="form-label">フリガナ（必須）</label>
+          <label className="form-label">フリガナ<span className='text-danger'>（必須）</span></label>
           <input type="text" className="form-control" name="name_kana" required value={form.name_kana} onChange={handleChange} />
         </div>
         <div className="mb-3">
@@ -108,9 +108,9 @@ const SignUp = () => {
 
         {/* 性別 */}
         <div className="mb-3">
-          <label className="form-label d-block">性別（必須）</label>
-          {genderLabels.map((label) => (
-            <div className="form-check form-check-inline">
+          <label className="form-label d-block">性別<span className='text-danger'>（必須）</span></label>
+          {genderLabels.map((label, index) => (
+            <div className="form-check form-check-inline" key={`gender-${index}`}>
               <input
                 id={`gender-${label}`}
                 className="form-check-input"
@@ -133,9 +133,9 @@ const SignUp = () => {
 
         {/* 配偶者の有無 */}
         <div className="mb-3">
-          <label className="form-label d-block">配偶者の有無（必須）</label>
-          {hasSpouseLabels.map((label) => (
-            <div className="form-check form-check-inline">
+          <label className="form-label d-block">配偶者の有無<span className='text-danger'>（必須）</span></label>
+          {hasSpouseLabels.map((label, index) => (
+            <div className="form-check form-check-inline" key={`has_spouse-${index}`}>
               <input
                 id={`has_spouse-${label}`}
                 className="form-check-input"

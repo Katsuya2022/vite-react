@@ -6,7 +6,7 @@ export const LogoutButton = () => {
   const { setUser } = useAuth();
   /** ホーム画面に遷移してからログインユーザー情報を削除する */
   const logout = async () => {
-    changePage('/')
+    changePage('/login')
     await supabase.auth.signOut();
     setUser(null);
   };

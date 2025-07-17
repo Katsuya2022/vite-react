@@ -1,4 +1,4 @@
-import { createContext, useContext, useLayoutEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 
 const AuthContext = createContext();
@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [profile, setProfile] = useState(null); // profiles テーブルの情報
   const [isReady, setIsReady] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // 初回読み込み時にセッションを取得
     const fetchUserAndProfile = async () => {
       const { data: { user } } = await supabase.auth.getUser();
@@ -32,19 +32,23 @@ export const AuthProvider = ({ children }) => {
 
     // 認証状態が変更されたら更新
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      const currentUser = session?.user || null;
-      setUser(currentUser);
+      // supabaseのデッドロック回避のためにsetTimeoutを使う(公式ドキュメント参照)
+      setTimeout(async () => {
+        const currentUser = session?.user || null;
+        setUser(currentUser);
 
-      if (currentUser) {
-        const { data, error } = supabase.from('profiles').select('*').eq('id', currentUser.id).single();
-        setProfile(!error ? data : null);
-      } else {
-        setProfile(null);
-      }
-      setIsReady(true);
-    });
-
-    return () => listener.subscription.unsubscribe();
+        if (currentUser) {
+          const { data, error } = await supabase.from('profiles').select('*').eq('id', currentUser.id).single();
+          setProfile(!error ? data : null);
+        } else {
+          setProfile(null);
+        }
+        setIsReady(true);
+      }, 0);
+    })
+    return () => {
+      listener.subscription.unsubscribe();
+    };
   }, []);
 
   return (
