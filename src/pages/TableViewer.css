@@ -1,6 +1,13 @@
+.tableViewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .view-area {
-  height: calc(100vh - 58px - 200px);
+  flex: 1 1 auto;
   overflow-y: auto;
+  min-width: 500px;
 }
 
 .table-name-input {

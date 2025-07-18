@@ -101,7 +101,7 @@ const Todo = () => {
   };
 
   return (
-    <div className='Todo'>
+    <div className='todo'>
       <h1>Todo</h1>
       <div className='controll-area'>
         <form onSubmit={(e) => {

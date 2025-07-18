@@ -57,12 +57,6 @@ const TableViewer = () => {
     }
   };
 
-  /** 検索を実行する */
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetchData();
-  }
-
   return (
     <div className='tableViewer'>
       <h1>データ確認</h1>
