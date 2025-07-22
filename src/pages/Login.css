@@ -1,0 +1,12 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.login form {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  width: 50%;
+  min-width: 500px;
+}

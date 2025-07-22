@@ -1,17 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
 
-// React Router を使うためのいろいろなもの
-import React from 'react';
-import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { AppRoutes } from './Routes.jsx' // Routes.jsxを参照
+import { Providers } from './Providers.jsx';
+import { AppRoutes } from './Routes.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
-  </StrictMode>,
+    <Providers>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </Providers>
+  </StrictMode>
 )

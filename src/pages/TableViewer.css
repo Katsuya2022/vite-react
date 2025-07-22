@@ -1,0 +1,29 @@
+.tableViewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.view-area {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-width: 500px;
+}
+
+.table-name-input {
+  height: 38px;
+  width: 360px;
+}
+
+.table-name-input::placeholder {
+  color: #dddddd;
+}
+
+.error-text {
+  margin: 0;
+}
+
+.table-name-link {
+  cursor: pointer;
+  padding-left: 10px;
+}
