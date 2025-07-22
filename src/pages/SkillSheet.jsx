@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import ProjectForm from '../components/SkillSheet/ProjectForm';
 import AddIcon from '@mui/icons-material/Add';
-import './Page1.css'
+import './SkillSheet.css'
 
-const Page1 = () => {
+const SkillSheet = () => {
   const [displayKihon, setDisplayKihon] = useState(false);
   const [project, setProject] = useState({
     id: 'project1',
@@ -89,9 +89,9 @@ const Page1 = () => {
   }
 
   return (
-    <div className='page1'>
+    <div className='skill-sheet'>
       <h1>Skill Sheet</h1>
-      <div className="d-flex gap-4 py-2 px-4">
+      <div className="d-flex gap-4 py-2 wrapper">
         {/* 左エリア */}
         <div className='d-flex flex-column left-area'>
           {/* 基本情報 */}
@@ -345,4 +345,4 @@ const Page1 = () => {
   )
 
 }
-export default Page1
+export default SkillSheet

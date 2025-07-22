@@ -1,6 +1,15 @@
+.skill-sheet {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.wrapper {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
 .left-area, .right-area {
-  /* 100vhからヘッダー58px、各要素112pxを引いた高さ */
-  height: calc(100vh - 58px - 92px);
   overflow-y: auto;
 }
 

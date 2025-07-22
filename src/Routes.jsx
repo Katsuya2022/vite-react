@@ -5,8 +5,8 @@ import Login from "./pages/Login.jsx";
 import SignUp from "./pages/SignUp.jsx";
 
 import ProtectedRoute from './components/ProtectedRoute';
-import Page1 from "./pages/Page1.jsx";
 import Todo from "./pages/Todo.jsx";
+import SkillSheet from "./pages/SkillSheet.jsx"
 import TableViewer from "./pages/TableViewer.jsx";
 import NoMatch from "./pages/NoMatch.js";
 
@@ -23,7 +23,7 @@ export const AppRoutes = () => {
 
           <Route element={<ProtectedRoute />}>
             <Route path="todo" element={<Todo />} />
-            <Route path="page1" element={<Page1 />} />
+            <Route path="skill-sheet" element={<SkillSheet />} />
             <Route path="tableviewer" element={<TableViewer />} />
             <Route path="*" element={<NoMatch />} />
           </Route>

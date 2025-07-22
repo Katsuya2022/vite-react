@@ -30,12 +30,6 @@ export const USER_MENU = [
     link: '/skill-Sheet',
     devOnly: false,
   },
-  {
-    text: 'Page1',
-    icon: <DescriptionIcon />,
-    link: '/page1',
-    devOnly: false,
-  },
 ]
 
 /** 開発者用のメニューリスト */
