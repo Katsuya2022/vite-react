@@ -314,7 +314,7 @@ const SkillSheet = () => {
                       <td rowSpan={2}>{dispPhaseIcon(project.phase.maintenance)}</td>
                     </tr>
                     <tr>
-                      <td colSpan={3}>{calcElapsedPeriod(project.startDate, project.endDate)}</td>
+                      <td colSpan={3} className='text-center'>{calcElapsedPeriod(project.startDate, project.endDate)}</td>
                       <td>
                         <span className='project-detail'>{`${project.projectDetail}`}</span>
                       </td>
