@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import './Todo.css'
 import { useToast } from '../components/Toast/Toast';
+import { useAuth } from '../contexts/AuthContext';
 
 const Todo = () => {
   const [response, setResponse] = useState(null);
@@ -11,8 +12,10 @@ const Todo = () => {
   const [isHideCompletedTodo, setIsHideCompletedTodo] = useState(false);
   const TODO_MAX_LENGTH = 140;
 
-    // トーストコンポーネントを使用する準備
+  // トーストコンポーネントを使用する準備
   const {showToast} = useToast();
+
+  const { user, isReady } = useAuth();
 
   /**
    * 初期表示時のTodo情報を取得する処理を呼び出す
@@ -25,7 +28,7 @@ const Todo = () => {
    * Todoを取得する
    */
   const fetchData = async () => {
-    const { data, error } = await supabase.from('todos').select().order('id', {ascending: true});
+    const { data, error } = await supabase.from('todos').select().eq('user_id', user.id).order('id', {ascending: true});
     if (error) {
       console.error(error);
     } else {
@@ -46,7 +49,10 @@ const Todo = () => {
       });
       return;
     }
-    const { error } = await supabase.from('todos').insert({title: todo});
+    const { error } = await supabase.from('todos').insert({
+      title: todo,
+      user_id: user.id
+    });
     if (error) {
       console.error(error.message);
       showToast({
