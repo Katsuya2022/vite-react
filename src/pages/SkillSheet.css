@@ -1,0 +1,65 @@
+.skill-sheet {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.wrapper {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.left-area, .right-area {
+  overflow-y: auto;
+}
+
+.left-area {
+  flex: 2;
+}
+
+.right-area {
+  flex: 3;
+}
+
+.circle-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-align: center;
+  padding: 0;
+}
+
+table.project-table {
+  border: #333 solid 2px !important;
+}
+
+table.kihon-left-table {
+  border-right: none !important;
+}
+
+th {
+  width: 120px;
+  text-align: center;
+}
+
+th.bg-th {
+  background-color: #9cf;
+}
+
+th.project-header {
+  text-align: center;
+  vertical-align: middle;
+}
+
+th.vertical-header {
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  height: 100px;
+  padding: 0;
+}
+
+.project-detail {
+  white-space: pre-wrap;
+}

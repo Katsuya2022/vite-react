@@ -1,6 +1,7 @@
 import React from "react";
 import HomeIcon from '@mui/icons-material/Home';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import EditDocumentIcon from '@mui/icons-material/EditDocument';
 import DescriptionIcon from '@mui/icons-material/Description';
 import StorageIcon from '@mui/icons-material/Storage';
 
@@ -24,9 +25,9 @@ export const USER_MENU = [
     devOnly: false,
   },
   {
-    text: 'Page1',
-    icon: <DescriptionIcon />,
-    link: '/page1',
+    text: 'Skill-Sheet',
+    icon: <EditDocumentIcon />,
+    link: '/skill-Sheet',
     devOnly: false,
   },
 ]

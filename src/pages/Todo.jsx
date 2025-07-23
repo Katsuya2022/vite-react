@@ -57,7 +57,7 @@ const Todo = () => {
       console.error(error.message);
       showToast({
         title: 'エラー',
-        message: 'Todoを入力してください。',
+        message: '登録処理中にエラーが発生しました。',
         type: 'danger',
       });
     } else {
@@ -146,8 +146,8 @@ const Todo = () => {
             <table className="table table-hover">
               <thead className="table-light table-header">
                 <tr>
-                  <th scope="col" className='col-id'>＃</th>
-                  <th scope="col" className='col-title'>タイトル</th>
+                  <th scope="col" className='col-id text-start'>＃</th>
+                  <th scope="col" className='col-title text-start'>タイトル</th>
                   <th scope="col" className='col-iscompleted text-center'>完了</th>
                   <th scope="col" className='col-delete text-center'>削除</th>
                 </tr>
