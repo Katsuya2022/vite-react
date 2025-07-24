@@ -62,6 +62,11 @@ const Todo = () => {
       });
     } else {
       setTodo('');
+      showToast({
+        title: '登録完了',
+        message: 'Todoを登録しました。',
+        type: 'primary',
+      });
       fetchData();
     }
   }
@@ -179,6 +184,11 @@ const Todo = () => {
                 }
               </tbody>
             </table>
+            {
+              displayTodos.length === 0
+              &&
+                <div className='text-primary text-center fw-bold'>NO DATA</div>
+            }
           </div>
         }
     </div>
