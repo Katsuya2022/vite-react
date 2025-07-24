@@ -8,7 +8,7 @@ import { useAuth } from '../../contexts/AuthContext';
 
 const Header = () => {
   const title = 'Title';
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const navigate = useNavigate();
   const changePage = (page) => {
     navigate(page);
@@ -48,8 +48,7 @@ const Header = () => {
           </ul>
           <div className="d-flex">
             <div className="d-flex justify-content-center align-items-center">
-              {/* supabeseとユーザ情報用のテーブルを連携したらemailからユーザー名に変更する */}
-              <span className="m-2">{`${user ? user.email : 'ゲスト'} さん、こんにちは`}</span>
+              <span className="m-2">{`${profile ? profile.name : 'ゲスト'} さん、こんにちは`}</span>
             </div>
             {
               user
