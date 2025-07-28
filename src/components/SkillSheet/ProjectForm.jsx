@@ -101,7 +101,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
               />
             </div>
           </div>
-          
+
           {/* 開始日 */}
           <div className="row mb-3">
             <label htmlFor={`start-date-${project.id}`} className="col-sm-3 col-form-label">開始日</label>
@@ -119,7 +119,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
               />
             </div>
           </div>
-          
+
           {/* 終了日 */}
           <div className="row mb-3">
             <label htmlFor={`end-date-${project.id}`} className="col-sm-3 col-form-label">終了日</label>
@@ -138,7 +138,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
               />
             </div>
           </div>
-          
+
           {/* 案件内容 */}
           <div className="row mb-3">
             <label htmlFor={`projectDetail-${project.id}`} className="col-sm-3 col-form-label">案件内容<br />
@@ -157,7 +157,79 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
               />
             </div>
           </div>
-          
+
+          {/* 役割 */}
+          <div className="row mb-3">
+            <label htmlFor={`role-${project.id}`} className="col-sm-3 col-form-label">役割</label>
+            <div className="col-sm-9">
+              <input
+                id={`role-${project.id}`}
+                type="text"
+                className="form-control"
+                value={project.role}
+                onChange={(e) =>
+                  setProject({ ...project, role: e.target.value })
+                }
+                placeholder='例：プログラマ, SE, テスター, PM'
+                required
+              />
+            </div>
+          </div>
+
+          {/* 規模（チーム） */}
+          <div className="row mb-3">
+            <label htmlFor={`teams-${project.id}`} className="col-sm-3 col-form-label">規模（チーム）</label>
+            <div className="col-sm-9">
+              <input
+                id={`teams-${project.id}`}
+                type="number"
+                className="form-control"
+                value={project.memberCounts.team}
+                onChange={(e) =>
+                  setProject({ ...project, memberCounts: {...project.memberCounts, teams: e.target.value} })
+                }
+                required
+                min={0}
+              />
+            </div>
+          </div>
+
+          {/* 規模（開発） */}
+          <div className="row mb-3">
+            <label htmlFor={`developers-${project.id}`} className="col-sm-3 col-form-label">規模（開発）</label>
+            <div className="col-sm-9">
+              <input
+                id={`developers-${project.id}`}
+                type="number"
+                className="form-control"
+                value={project.memberCounts.team}
+                onChange={(e) =>
+                  setProject({ ...project, memberCounts: {...project.memberCounts, developers: e.target.value} })
+                }
+                required
+                min={0}
+              />
+            </div>
+          </div>
+
+          {/* 規模（全体） */}
+          <div className="row mb-3">
+            <label htmlFor={`total-${project.id}`} className="col-sm-3 col-form-label">規模（全体）</label>
+            <div className="col-sm-9">
+              <input
+                id={`total-${project.id}`}
+                type="number"
+                className="form-control"
+                value={project.memberCounts.team}
+                onChange={(e) =>
+                  setProject({ ...project, memberCounts: {...project.memberCounts, total: e.target.value} })
+                }
+                required
+                min={0}
+              />
+            </div>
+          </div>
+
           {/* 言語 */}
           <div className="row mb-3">
             <label htmlFor={`language-${project.id}`} className="col-sm-3 col-form-label">言語</label>
@@ -174,7 +246,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
               />
             </div>
           </div>
-          
+
           {/* DB・FW・ツール等 */}
           <div className="row mb-3">
             <label htmlFor={`tools-${project.id}`} className="col-sm-3 col-form-label">DB・FW・ツール等</label>

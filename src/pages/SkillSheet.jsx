@@ -10,7 +10,14 @@ const SkillSheet = () => {
     title: '案件1',
     startDate: '',
     endDate: '',
+    period: 0, 
     projectDetail: '',
+    role: '',
+    memberCounts: {
+      teams: 0,       // チーム
+      developers: 0,  // 開発
+      total: 0,       // 全体
+    },
     language: '',
     tools: '',
     phase: {
@@ -73,8 +80,11 @@ const SkillSheet = () => {
     let yearDiff = endYear - startYear;
     let monthDiff = endMonth - startMonth;
 
-    // 同年月の場合を１ヶ月として、以降+1ヶ月として計算する
+    // 同年月の場合を1ヶ月として、以降+1ヶ月として計算する
     let totalMonths = yearDiff * 12 + monthDiff + 1;
+
+    // 期間を案件情報に保持しておく
+    setProjects({ ...project, period: totalMonths });
 
     const resultYears = Math.floor(totalMonths / 12);
     const resultMonths = totalMonths % 12;
@@ -274,7 +284,7 @@ const SkillSheet = () => {
                       <td style={{ width: '2%' }}>-</td>
                       <td style={{ width: '8%' }}>{project.endDate}</td>
                       <td>{`■${project.title}`}</td>
-                      <td>SE</td>
+                      <td>{project.role}</td>
                       <td rowSpan={2}>
                         <span>
                           JavaScript<br />
@@ -321,11 +331,11 @@ const SkillSheet = () => {
                       <td>
                         <span>
                           チーム<br />
-                          6名<br />
+                          {`${project.memberCounts.teams}名`}<br />
                           開発<br />
-                          15名<br />
+                          {`${project.memberCounts.developers}名`}<br />
                           全体<br />
-                          20名
+                          {`${project.memberCounts.total}名`}
                         </span>
                       </td>
                     </tr>
