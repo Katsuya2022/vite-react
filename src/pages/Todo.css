@@ -14,10 +14,6 @@
   width: 360px;
 }
 
-.todo-input::placeholder {
-  color: #dddddd;
-}
-
 .switch-btn {
   margin-left: 14px;
 }

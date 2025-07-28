@@ -15,10 +15,6 @@
   width: 360px;
 }
 
-.table-name-input::placeholder {
-  color: #dddddd;
-}
-
 .error-text {
   margin: 0;
 }

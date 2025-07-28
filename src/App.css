@@ -15,3 +15,8 @@ body {
   width: calc(100vw - 200px);
   padding: 10px 20px;
 }
+
+/** 入力欄のプレースホルダーのスタイル */
+input::placeholder, textarea::placeholder {
+  color: #dddddd !important;
+}
