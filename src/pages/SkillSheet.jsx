@@ -83,9 +83,6 @@ const SkillSheet = () => {
     // 同年月の場合を1ヶ月として、以降+1ヶ月として計算する
     let totalMonths = yearDiff * 12 + monthDiff + 1;
 
-    // 期間を案件情報に保持しておく
-    setProjects({ ...project, period: totalMonths });
-
     const resultYears = Math.floor(totalMonths / 12);
     const resultMonths = totalMonths % 12;
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './ProjectForm.css';
 import LanguageSelect from '../CreatableSelect/CreatableSelect';
 
@@ -76,17 +76,52 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
     alert(totalText);
   }
 
+  /** 
+   * 開始日変更処理
+   * 開始日が削除された際は終了日の値も削除し、終了日を非活性にする
+   */
+  const handleStartDate = (e) => {
+    const newStartDate = e.target.value;
+    setProject({
+      ...project,
+      startDate: newStartDate,
+      endDate: newStartDate === '' ? '' : project.endDate,
+      period: calcElapsedPeriod(newStartDate, project.endDate)
+    });
+    setIsEndDateDisabled(newStartDate === '');
+  }
+
+  /**
+   * 終了日変更処理
+   */
+  const handleEndDate = (e) => {
+    const newEndDate = e.target.value;
+    setProject({...project, endDate: newEndDate, period: calcElapsedPeriod(project.startDate, newEndDate)});
+  }
+
+  /**
+   * 開始日と終了日から経過期間を計算する
+   * 開始日と終了日が同一の場合を0年1か月として、以降1か月ずつ加算する
+   * @param {String} startDate 開始日(yyyy-mm)
+   * @param {String} endDate 終了日(yyyy-mm)
+   * @returns 経過期間(〇ヶ月)
+   */
+  const calcElapsedPeriod = (startDate, endDate) => {
+    if (!startDate || !endDate) {
+      return 0;
+    }
+    const [startYear, startMonth] = startDate.split('-').map(Number);
+    const [endYear, endMonth] = endDate.split('-').map(Number);
+
+    let yearDiff = endYear - startYear;
+    let monthDiff = endMonth - startMonth;
+
+    // 同年月の場合を1ヶ月として、以降+1ヶ月として計算する
+    return yearDiff * 12 + monthDiff + 1;
+  }
+
   /** 担当工程に1つ以上チェックが入っているか */
   const isAtLeastOnePhaseChecked = Object.values(project.phase).some(v => v);
-
-  useEffect(() => {
-    if (project.startDate === '') {
-      setProject({ ...project, endDate: '' });
-      setIsEndDateDisabled(true);
-    } else {
-      setIsEndDateDisabled(false);
-    }
-  }, [project.startDate])
 
   return (
     <div id="input-area" className="p-3 rounded border border-primary mb-4">
@@ -124,9 +159,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 type="month"
                 className="form-control"
                 value={project.startDate}
-                onChange={(e) =>
-                  setProject({ ...project, startDate: e.target.value })
-                }
+                onChange={handleStartDate}
                 required
                 max={project.endDate}
               />
@@ -142,9 +175,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 type="month"
                 className="form-control"
                 value={project.endDate}
-                onChange={(e) =>
-                  setProject({ ...project, endDate: e.target.value })
-                }
+                onChange={handleEndDate}
                 required
                 min={project.startDate}
                 disabled={isEndDateDisabled}
