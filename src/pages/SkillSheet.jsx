@@ -276,31 +276,31 @@ const SkillSheet = () => {
                 projects.map((project, index) => (
                   <React.Fragment key={index}>
                     <tr>
-                      <th scope="row" rowSpan={2} className="bg-th" style={{ width: '2%' }}>1</th>
-                      <td style={{ width: '8%' }}>{project.startDate}</td>
-                      <td style={{ width: '2%' }}>-</td>
-                      <td style={{ width: '8%' }}>{project.endDate}</td>
+                      <th scope="row" rowSpan={3} className="bg-th" style={{ width: '2%' }}>1</th>
+                      <td rowSpan={2} style={{ width: '8%' }}>{project.startDate}</td>
+                      <td rowSpan={2} style={{ width: '2%' }}>-</td>
+                      <td rowSpan={2} style={{ width: '8%' }}>{project.endDate}</td>
                       <td>{`■${project.title}`}</td>
                       <td>{project.role}</td>
-                      <td rowSpan={2}>
+                      <td rowSpan={3}>
                         <span>
                           JavaScript<br />
                           node.js
                         </span>
                       </td>
-                      <td rowSpan={2}>
+                      <td rowSpan={3}>
                         <span>
                           AWS<br />
                           postgreSQL
                         </span>
                       </td>
-                      <td rowSpan={2}>
+                      <td rowSpan={3}>
                         <span>
                           Windows<br />
                           Linux
                         </span>
                       </td>
-                      <td rowSpan={2}>
+                      <td rowSpan={3}>
                         <span>
                           Vue.js<br />
                           Buefy<br />
@@ -312,20 +312,20 @@ const SkillSheet = () => {
                           A5M2
                         </span>
                       </td>
-                      <td rowSpan={2}>{dispPhaseIcon(project.phase.requirements)}</td>
-                      <td rowSpan={2}>{dispPhaseIcon(project.phase.basicDesign)}</td>
-                      <td rowSpan={2}>{dispPhaseIcon(project.phase.detailDesign)}</td>
-                      <td rowSpan={2}>{dispPhaseIcon(project.phase.implementation)}</td>
-                      <td rowSpan={2}>{dispPhaseIcon(project.phase.integrationTest)}</td>
-                      <td rowSpan={2}>{dispPhaseIcon(project.phase.systemTest)}</td>
-                      <td rowSpan={2}>{dispPhaseIcon(project.phase.maintenance)}</td>
+                      <td rowSpan={3}>{dispPhaseIcon(project.phase.requirements)}</td>
+                      <td rowSpan={3}>{dispPhaseIcon(project.phase.basicDesign)}</td>
+                      <td rowSpan={3}>{dispPhaseIcon(project.phase.detailDesign)}</td>
+                      <td rowSpan={3}>{dispPhaseIcon(project.phase.implementation)}</td>
+                      <td rowSpan={3}>{dispPhaseIcon(project.phase.integrationTest)}</td>
+                      <td rowSpan={3}>{dispPhaseIcon(project.phase.systemTest)}</td>
+                      <td rowSpan={3}>{dispPhaseIcon(project.phase.maintenance)}</td>
                     </tr>
+
                     <tr>
-                      <td colSpan={3} className='text-center'>{calcElapsedPeriod(project.startDate, project.endDate)}</td>
-                      <td>
+                      <td rowSpan={2}>
                         <span className='project-detail'>{`${project.projectDetail}`}</span>
                       </td>
-                      <td>
+                      <td rowSpan={2}>
                         <span>
                           チーム<br />
                           {`${project.memberCounts.teams}名`}<br />
@@ -335,6 +335,10 @@ const SkillSheet = () => {
                           {`${project.memberCounts.total}名`}
                         </span>
                       </td>
+                    </tr>
+
+                    <tr>
+                      <td colSpan={3} className='text-center'>{calcElapsedPeriod(project.startDate, project.endDate)}</td>
                     </tr>
                   </React.Fragment>
                 ))
