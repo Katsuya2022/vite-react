@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './ProjectForm.css';
 import LanguageSelect from '../CreatableSelect/CreatableSelect';
+import { popularLanguages } from '../../utils/constants';
 
 const ProjectForm = ({project, setProject, onDeleteProject}) => {
   const [displayInputArea, setDisplayInputArea] = useState(false);
@@ -30,18 +31,6 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
     { key: 'systemTest', label: '総合テスト' },
     { key: 'maintenance', label: '保守・運用' },
   ];
-
-  // スキルの選択肢サンプル
-  // スキルテーブルから取得して設定するようあとから修正すること
-  const languageOptions = [
-    { value: 'JavaScript', label: 'JavaScript' },
-    { value: 'Python', label: 'Python' },
-    { value: 'TypeScript', label: 'TypeScript' },
-    { value: 'Go', label: 'Go' },
-    { value: 'Ruby', label: 'Ruby' },
-  ];
-
-  const [skills, setSkills] = useState([]);
 
   const handleSubmit = ((e) => {
     e.preventDefault();
@@ -118,6 +107,13 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
 
     // 同年月の場合を1ヶ月として、以降+1ヶ月として計算する
     return yearDiff * 12 + monthDiff + 1;
+  }
+
+  /**
+   * 言語変更処理
+   */
+  const handleLanguageInput = (newLanguages) => {
+    setProject({...project, languages: newLanguages})
   }
 
   /** 担当工程に1つ以上チェックが入っているか */
@@ -275,25 +271,10 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
           </div>
 
           {/* 言語 */}
-          {/* <div className="row mb-3">
-            <label htmlFor={`language-${project.id}`} className="col-sm-3 col-form-label">言語</label>
-            <div className="col-sm-9">
-              <input
-                id="language"
-                type="text"
-                className="form-control"
-                value={project.language}
-                onChange={(e) =>
-                  setProject({ ...project, language: e.target.value })
-                }
-                required
-              />
-            </div>
-          </div> */}
           <LanguageSelect
-            options={languageOptions}
-            setValue={setSkills}
-            value={skills}
+            options={popularLanguages}
+            setValue={handleLanguageInput}
+            value={project.langages}
             placeholder="言語"
             id={`langage-${project.id}`}
           />

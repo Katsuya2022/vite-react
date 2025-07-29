@@ -18,7 +18,7 @@ const SkillSheet = () => {
       developers: 0,  // 開発
       total: 0,       // 全体
     },
-    language: '',
+    languages: [],
     tools: '',
     phase: {
       requirements: false,      // 要件定義
@@ -31,9 +31,11 @@ const SkillSheet = () => {
     },
     visible: true
   });
+
   const [projects, setProjects] = useState([
     project
   ]);
+
   // setProject 関数を定義して個別プロジェクトを更新
   const updateProject = (id, updatedProject) => {
     const updated = projects.map(p => p.id === id ? updatedProject : p);
@@ -283,10 +285,11 @@ const SkillSheet = () => {
                       <td>{`■${project.title}`}</td>
                       <td>{project.role}</td>
                       <td rowSpan={3}>
-                        <span>
-                          JavaScript<br />
-                          node.js
-                        </span>
+                        {
+                          project.languages.map((lang, index) => (
+                            <span key={index}>{lang.label}<br /></span>
+                          ))
+                        }
                       </td>
                       <td rowSpan={3}>
                         <span>
