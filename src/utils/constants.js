@@ -1,4 +1,4 @@
-/** 2025年時点で日常的に使われている代表的なプログラミング言語をchatGPTに列挙させたもの */
+/** 2025年時点で日常的に使われている代表的なプログラミング言語をchatGPTに列挙させたリスト */
 export const popularLanguages = [
   { value: "Ada", label: "Ada" },
   { value: "Assembly", label: "Assembly" },
@@ -51,3 +51,73 @@ export const popularLanguages = [
   { value: "Zig", label: "Zig" }
 ];
 
+/** 2025年時点で日常的に使われている代表的なフレームワーク、ミドルウェア、ツールをchatGPTに列挙させたリスト */
+export const popularFrameworksAndTools = [
+  // フレームワーク
+  { value: "Angular", label: "Angular" },
+  { value: "ASPNetCore", label: "ASPNetCore" },
+  { value: "Django", label: "Django" },
+  { value: "Express", label: "Express" },
+  { value: "Flask", label: "Flask" },
+  { value: "Laravel", label: "Laravel" },
+  { value: "NestJS", label: "NestJS" },
+  { value: "Nextjs", label: "Nextjs" },
+  { value: "Nuxtjs", label: "Nuxtjs" },
+  { value: "Phoenix", label: "Phoenix" },
+  { value: "React", label: "React" },
+  { value: "RubyOnRails", label: "RubyOnRails" },
+  { value: "SpringBoot", label: "SpringBoot" },
+  { value: "Symfony", label: "Symfony" },
+  { value: "Vuejs", label: "Vuejs" },
+
+  // ミドルウェア（DBを除く）
+  { value: "Apache", label: "Apache" },
+  { value: "Docker", label: "Docker" },
+  { value: "Elasticsearch", label: "Elasticsearch" },
+  { value: "Kafka", label: "Kafka" },
+  { value: "Kubernetes", label: "Kubernetes" },
+  { value: "Nginx", label: "Nginx" },
+  { value: "RabbitMQ", label: "RabbitMQ" },
+
+  // ツール
+  { value: "Backlog", label: "Backlog" },
+  { value: "Bitbucket", label: "Bitbucket" },
+  { value: "ChatGPT", label: "ChatGPT" },
+  { value: "CircleCI", label: "CircleCI" },
+  { value: "Eclipse", label: "Eclipse" },
+  { value: "Figma", label: "Figma" },
+  { value: "Git", label: "Git" },
+  { value: "GitHub", label: "GitHub" },
+  { value: "GitLab", label: "GitLab" },
+  { value: "IntelliJIDEA", label: "IntelliJIDEA" },
+  { value: "Jenkins", label: "Jenkins" },
+  { value: "Jira", label: "Jira" },
+  { value: "Notion", label: "Notion" },
+  { value: "Postman", label: "Postman" },
+  { value: "Slack", label: "Slack" },
+  { value: "Swagger", label: "Swagger" },
+  { value: "TravisCI", label: "TravisCI" },
+  { value: "VSCode", label: "VSCode" }
+];
+
+/** 2025年時点で日常的に使われている代表的なDBをchatGPTに列挙させたリスト */
+export const popularDatabases = [
+  { value: "Aurora", label: "Aurora" },
+  { value: "Cassandra", label: "Cassandra" },
+  { value: "CloudDatastore", label: "CloudDatastore" },
+  { value: "CloudSQL", label: "CloudSQL" },
+  { value: "DynamoDB", label: "DynamoDB" },
+  { value: "ElastiCache", label: "ElastiCache" },
+  { value: "FirebaseRealtimeDatabase", label: "FirebaseRealtimeDatabase" },
+  { value: "Firestore", label: "Firestore" },
+  { value: "InfluxDB", label: "InfluxDB" },
+  { value: "MariaDB", label: "MariaDB" },
+  { value: "MongoDB", label: "MongoDB" },
+  { value: "MySQL", label: "MySQL" },
+  { value: "Neo4j", label: "Neo4j" },
+  { value: "OracleDatabase", label: "OracleDatabase" },
+  { value: "PostgreSQL", label: "PostgreSQL" },
+  { value: "Redis", label: "Redis" },
+  { value: "SQLite", label: "SQLite" },
+  { value: "SQLServer", label: "SQLServer" }
+];
