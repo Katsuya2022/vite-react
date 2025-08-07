@@ -1,14 +1,13 @@
 import React from 'react';
 import CreatableSelect from 'react-select/creatable';
 
-const LanguageSelect = ({options, setValue, value, placeholder, id}) => {
+const LanguageSelect = ({options, setValue, value, placeholder, id, classProp}) => {
   const handleChange = (newValue) => {
     setValue(newValue);
   };
 
   return (
-    <div>
-      <label htmlFor={id}>使用言語</label>
+    <div className={classProp}>
       <CreatableSelect
         isMulti
         options={options}

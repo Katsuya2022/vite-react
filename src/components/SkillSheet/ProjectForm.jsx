@@ -270,14 +270,18 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
             </div>
           </div>
 
-          {/* 言語 */}
-          <LanguageSelect
-            options={popularLanguages}
-            setValue={handleLanguageInput}
-            value={project.langages}
-            placeholder="言語"
-            id={`langage-${project.id}`}
-          />
+          {/* 使用言語 */}
+          <div className='row mb-3'>
+            <label htmlFor={`langage-${project.id}`} className="col-sm-3 col-form-label">使用言語</label>
+            <LanguageSelect
+              options={popularLanguages}
+              setValue={handleLanguageInput}
+              value={project.langages}
+              placeholder="使用言語"
+              id={`langage-${project.id}`}
+              classProp='col-sm-9'
+            />
+          </div>
 
           {/* DB・FW・ツール等 */}
           <div className="row mb-3">
