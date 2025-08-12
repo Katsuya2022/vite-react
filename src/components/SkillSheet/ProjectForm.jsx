@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './ProjectForm.css';
-import LanguageSelect from '../CreatableSelect/CreatableSelect';
-import { popularLanguages } from '../../utils/constants';
+import TabSelect from '../TabSelect/TabSelect';
+import { popularLanguages, popularDatabases, popularOs, popularFrameworksAndTools } from '../../utils/constants';
 
 const ProjectForm = ({project, setProject, onDeleteProject}) => {
   const [displayInputArea, setDisplayInputArea] = useState(false);
@@ -110,10 +110,31 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
   }
 
   /**
-   * 言語変更処理
+   * 使用言語入力処理
    */
-  const handleLanguageInput = (newLanguages) => {
-    setProject({...project, languages: newLanguages})
+  const handleLanguageInput = (newDatabase) => {
+    setProject({...project, languages: newDatabase})
+  }
+
+  /**
+   * DB入力処理
+   */
+  const handleDbInput = (newLanguages) => {
+    setProject({...project, database: newLanguages})
+  }
+
+  /**
+   * サーバOS入力処理
+   */
+  const handleOsInput = (newOs) => {
+    setProject({...project, os: newOs})
+  }
+
+  /**
+   * FW・MW・ツール入力処理
+   */
+  const handleToolsInput = (newTools) => {
+    setProject({...project, tools: newTools})
   }
 
   /** 担当工程に1つ以上チェックが入っているか */
@@ -273,30 +294,77 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
           {/* 使用言語 */}
           <div className='row mb-3'>
             <label htmlFor={`langage-${project.id}`} className="col-sm-3 col-form-label">使用言語</label>
-            <LanguageSelect
+            <TabSelect
               options={popularLanguages}
               setValue={handleLanguageInput}
               value={project.langages}
-              placeholder="使用言語"
+              placeholder="例：Java, JavaScript, HTML, CSS"
               id={`langage-${project.id}`}
               classProp='col-sm-9'
+              styles={{
+                placeholder: (base) => ({
+                  ...base,
+                  color: '#dddddd',
+                })
+              }}
             />
           </div>
 
-          {/* DB・FW・ツール等 */}
-          <div className="row mb-3">
-            <label htmlFor={`tools-${project.id}`} className="col-sm-3 col-form-label">DB・FW・ツール等</label>
-            <div className="col-sm-9">
-              <input
-                id={`tools-${project.id}`}
-                type="text"
-                className="form-control"
-                value={project.tools}
-                onChange={(e) =>
-                  setProject({ ...project, tools: e.target.value })
-                }
-              />
-            </div>
+          {/* DB */}
+          <div className='row mb-3'>
+            <label htmlFor={`db-${project.id}`} className="col-sm-3 col-form-label">DB</label>
+            <TabSelect
+              options={popularDatabases}
+              setValue={handleDbInput}
+              value={project.database}
+              placeholder="例：MySQL, PostgreSQL, Oracle"
+              id={`db-${project.id}`}
+              classProp='col-sm-9'
+              styles={{
+                placeholder: (base) => ({
+                  ...base,
+                  color: '#dddddd',
+                })
+              }}
+            />
+          </div>
+
+          {/* サーバOS */}
+          <div className='row mb-3'>
+            <label htmlFor={`os-${project.id}`} className="col-sm-3 col-form-label">サーバOS</label>
+            <TabSelect
+              options={popularOs}
+              setValue={handleOsInput}
+              value={project.os}
+              placeholder="例：Windows, Linux, Unix"
+              id={`os-${project.id}`}
+              classProp='col-sm-9'
+              styles={{
+                placeholder: (base) => ({
+                  ...base,
+                  color: '#dddddd',
+                })
+              }}
+            />
+          </div>
+
+          {/* FW・MW・ツール等 */}
+          <div className='row mb-3'>
+            <label htmlFor={`langage-${project.id}`} className="col-sm-3 col-form-label">FW・MW・ﾂｰﾙ等</label>
+            <TabSelect
+              options={popularFrameworksAndTools}
+              setValue={handleToolsInput}
+              value={project.langages}
+              placeholder="例：Vscode, Eclipse, Git, BootStrap"
+              id={`langage-${project.id}`}
+              classProp='col-sm-9'
+              styles={{
+                placeholder: (base) => ({
+                  ...base,
+                  color: '#dddddd',
+                })
+              }}
+            />
           </div>
 
           {/* 担当工程 */}

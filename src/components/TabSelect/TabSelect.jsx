@@ -1,7 +1,7 @@
 import React from 'react';
 import CreatableSelect from 'react-select/creatable';
 
-const LanguageSelect = ({options, setValue, value, placeholder, id, classProp}) => {
+const TabSelect = ({options, setValue, value, placeholder, id, classProp, styles}) => {
   const handleChange = (newValue) => {
     setValue(newValue);
   };
@@ -15,9 +15,10 @@ const LanguageSelect = ({options, setValue, value, placeholder, id, classProp}) 
         value={value}
         placeholder={placeholder}
         id={id}
+        styles={styles}
       />
     </div>
   );
 };
 
-export default LanguageSelect;
+export default TabSelect;

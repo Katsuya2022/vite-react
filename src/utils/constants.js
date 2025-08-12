@@ -60,15 +60,15 @@ export const popularFrameworksAndTools = [
   { value: "Express", label: "Express" },
   { value: "Flask", label: "Flask" },
   { value: "Laravel", label: "Laravel" },
-  { value: "NestJS", label: "NestJS" },
-  { value: "Nextjs", label: "Nextjs" },
-  { value: "Nuxtjs", label: "Nuxtjs" },
+  { value: "Nest.js", label: "Nest.js" },
+  { value: "Next.js", label: "Next.js" },
+  { value: "Nuxt.js", label: "Nuxt.js" },
   { value: "Phoenix", label: "Phoenix" },
   { value: "React", label: "React" },
   { value: "RubyOnRails", label: "RubyOnRails" },
   { value: "SpringBoot", label: "SpringBoot" },
   { value: "Symfony", label: "Symfony" },
-  { value: "Vuejs", label: "Vuejs" },
+  { value: "Vue.js", label: "Vue.js" },
 
   // ミドルウェア（DBを除く）
   { value: "Apache", label: "Apache" },
@@ -99,6 +99,17 @@ export const popularFrameworksAndTools = [
   { value: "TravisCI", label: "TravisCI" },
   { value: "VSCode", label: "VSCode" }
 ];
+
+/** 2025年時点で日常的に使われている代表的なOSをchatGPTに列挙させたリスト */
+export const popularOs = [
+  { value: "Android", label: "Android" },
+  { value: "iOS", label: "iOS" },
+  { value: "Linux", label: "Linux" },
+  { value: "MacOS", label: "MacOS" },
+  { value: "CentOS", label: "CentOS" },
+  { value: "Unix", label: "Unix" },
+  { value: "Windows", label: "Windows" },
+]
 
 /** 2025年時点で日常的に使われている代表的なDBをchatGPTに列挙させたリスト */
 export const popularDatabases = [

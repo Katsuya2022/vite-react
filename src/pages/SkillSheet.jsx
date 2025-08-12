@@ -6,21 +6,23 @@ import './SkillSheet.css'
 const SkillSheet = () => {
   const [displayKihon, setDisplayKihon] = useState(false);
   const [project, setProject] = useState({
-    id: 'project1',
-    title: '案件1',
-    startDate: '',
-    endDate: '',
-    period: 0, 
-    projectDetail: '',
-    role: '',
-    memberCounts: {
-      teams: 0,       // チーム
-      developers: 0,  // 開発
-      total: 0,       // 全体
+    id: 'project1',     // ID
+    title: '案件1',     // 案件名
+    startDate: '',      // 開始日
+    endDate: '',        // 終了日
+    period: 0,          // 期間
+    projectDetail: '',  // 案件内容
+    role: '',           // 役割
+    memberCounts: {     // 規模
+      teams: 0,         // チーム
+      developers: 0,    // 開発
+      total: 0,         // 全体
     },
-    languages: [],
-    tools: '',
-    phase: {
+    languages: [],      // 言語
+    database: [],       // データベース
+    os: [],             // サーバOS
+    tools: [],          // FW・MW・ツール等
+    phase: {            // 担当工程
       requirements: false,      // 要件定義
       basicDesign: false,       // 基本設計
       detailDesign: false,      // 詳細設計
@@ -29,7 +31,7 @@ const SkillSheet = () => {
       systemTest: false,        // 総合テスト
       maintenance: false        // 保守・運用
     },
-    visible: true
+    visible: true       // 表示/非表示
   });
 
   const [projects, setProjects] = useState([
@@ -292,28 +294,25 @@ const SkillSheet = () => {
                         }
                       </td>
                       <td rowSpan={3}>
-                        <span>
-                          AWS<br />
-                          postgreSQL
-                        </span>
+                        {
+                          project.database.map((db, index) => (
+                            <span key={index}>{db.label}<br /></span>
+                          ))
+                        }
                       </td>
                       <td rowSpan={3}>
-                        <span>
-                          Windows<br />
-                          Linux
-                        </span>
+                        {
+                          project.os.map((o, index) => (
+                            <span key={index}>{o.label}<br /></span>
+                          ))
+                        }
                       </td>
                       <td rowSpan={3}>
-                        <span>
-                          Vue.js<br />
-                          Buefy<br />
-                          C3.js<br />
-                          Sequelize<br />
-                          Swagger<br />
-                          Git<br />
-                          RedMine<br />
-                          A5M2
-                        </span>
+                        {
+                          project.tools.map((tool, index) => (
+                            <span key={index}>{tool.label}<br /></span>
+                          ))
+                        }
                       </td>
                       <td rowSpan={3}>{dispPhaseIcon(project.phase.requirements)}</td>
                       <td rowSpan={3}>{dispPhaseIcon(project.phase.basicDesign)}</td>
