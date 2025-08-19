@@ -92,9 +92,9 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
     const newStartDate = e.target.value;
     setProject({
       ...project,
-      startDate: newStartDate,
-      endDate: newStartDate === '' ? '' : project.endDate,
-      period: calcElapsedPeriod(newStartDate, project.endDate)
+      start_date: newStartDate,
+      end_date: newStartDate === '' ? '' : project.end_date,
+      period: calcElapsedPeriod(newStartDate, project.end_date)
     });
     setIsEndDateDisabled(newStartDate === '');
   }
@@ -104,7 +104,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
    */
   const handleEndDate = (e) => {
     const newEndDate = e.target.value;
-    setProject({...project, endDate: newEndDate, period: calcElapsedPeriod(project.startDate, newEndDate)});
+    setProject({...project, end_date: newEndDate, period: calcElapsedPeriod(project.start_date, newEndDate)});
   }
 
   /**
@@ -159,55 +159,72 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
   /** 保存するボタン押下時の処理 */
   const handleSubmit = ((e) => {
     e.preventDefault();
-    checkFormInputs();
+    if (!checkFormInputs()) {
+      console.log(project);
+    };
   });
 
-  /** 入力フォームのチェック処理 */
+  /**
+   * 入力フォームのチェック処理
+   * @returns エラーの有無
+   */
   const checkFormInputs = () => {
+    /** エラーの有無 */
+    let isError = false;
     // 案件名のチェック処理
     if (!project.project_name) {
       alert('案件名を入力してください');
-      return;
+      isError = true;
+      return isError;
     }
 
     // 開始日のチェック処理
-    if (!project.startDate) {
+    if (!project.start_date) {
       alert('開始日を入力してください');
-      return;
+      isError = true;
+      return isError;
     }
 
     // 終了日のチェック処理
-    if (!project.endDate) {
+    if (!project.end_date) {
       alert('終了日を入力してください');
-      return;
+      isError = true;
+      return isError;
     }
 
     // 開始日、終了日の整合性チェック処理
-    const start = new Date(project.startDate);
-    const end = new Date(project.endDate);
+    const start = new Date(project.start_date);
+    const end = new Date(project.end_date);
     if (end < start) {
       alert('終了日は開始日以降の日付を入力してください');
-      return;
+      isError = true;
+      return isError;
     }
 
     // 案件内容のチェック処理
     if (!project.project_detail) {
       alert('案件内容を入力してください');
-      return;
+      isError = true;
+      return isError;
     }
 
     // 役割のチェック処理
     if (!project.role) {
       alert('役割を入力してください');
-      return;
+      isError = true;
+      return isError;
     }
 
     // 担当工程のチェック処理
     const isAtLeastOnePhaseChecked = Object.values(project.phase).some(v => v);
     if(!isAtLeastOnePhaseChecked) {
       alert('担当工程を1つ以上選択してください');
-      return;
+      isError = true;
+      return isError;
     }
+
+    // エラーが無ければisError==falseを返す
+    return isError;
   }
 
   return (
@@ -245,10 +262,10 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 id={`start-date-${project.id}`}
                 type="month"
                 className="form-control"
-                value={project.startDate}
+                value={project.start_date}
                 onChange={handleStartDate}
                 required
-                max={project.endDate}
+                max={project.end_date}
               />
             </div>
           </div>
@@ -261,10 +278,10 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 id={`end-date-${project.id}`}
                 type="month"
                 className="form-control"
-                value={project.endDate}
+                value={project.end_date}
                 onChange={handleEndDate}
                 required
-                min={project.startDate}
+                min={project.start_date}
                 disabled={isEndDateDisabled}
               />
             </div>

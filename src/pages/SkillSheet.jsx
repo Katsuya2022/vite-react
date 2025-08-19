@@ -10,8 +10,8 @@ const SkillSheet = () => {
   const [project, setProject] = useState({
     id: 'project1',         // ID
     project_name: '案件1',  // 案件名
-    startDate: '',          // 開始日
-    endDate: '',            // 終了日
+    start_date: '',          // 開始日
+    end_date: '',            // 終了日
     period: 0,              // 期間
     project_detail: '',     // 案件内容
     role: '',               // 役割
@@ -176,7 +176,12 @@ const SkillSheet = () => {
           {/* 案件 */}
           {
             projects.map((project, index) => (
-              <ProjectForm key={index} project={project} setProject={(updated) => updateProject(project.id, updated)} onDeleteProject={deleteProject} />
+              <ProjectForm
+                key={index}
+                project={project}
+                setProject={(updated) => updateProject(project.id, updated)}
+                onDeleteProject={deleteProject}
+              />
             ))
           }
 
@@ -298,9 +303,9 @@ const SkillSheet = () => {
                   <React.Fragment key={index}>
                     <tr>
                       <th scope="row" rowSpan={3} className="bg-th" style={{ width: '2%' }}>{index + 1}</th>
-                      <td rowSpan={2} style={{ width: '8%' }}>{project.startDate}</td>
+                      <td rowSpan={2} style={{ width: '8%' }}>{project.start_date}</td>
                       <td rowSpan={2} style={{ width: '2%' }}>-</td>
-                      <td rowSpan={2} style={{ width: '8%' }}>{project.endDate}</td>
+                      <td rowSpan={2} style={{ width: '8%' }}>{project.end_date}</td>
                       <td>{`■${project.project_name}`}</td>
                       <td>{project.role}</td>
                       <td rowSpan={3}>
@@ -357,7 +362,7 @@ const SkillSheet = () => {
                     </tr>
 
                     <tr>
-                      <td colSpan={3} className='text-center'>{calcElapsedPeriod(project.startDate, project.endDate)}</td>
+                      <td colSpan={3} className='text-center'>{calcElapsedPeriod(project.start_date, project.end_date)}</td>
                     </tr>
                   </React.Fragment>
                 ))
