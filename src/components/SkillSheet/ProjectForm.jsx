@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react'
 import './ProjectForm.css';
 import TabSelect from '../TabSelect/TabSelect';
-import { supabase } from '../../lib/supabase';
 
-const ProjectForm = ({project, setProject, onDeleteProject}) => {
+const ProjectForm = ({
+  project, setProject, onDeleteProject, languageOptions, databaseOptions, osOptions, fwMwToolOptions
+}) => {
   // 入力フォームの表示/非表示
   const [displayInputArea, setDisplayInputArea] = useState(false);
-  // 使用言語の選択肢
-  const [languageOptions, setLanguageOptions] = useState([]);
-  // DBの選択肢
-  const [databaseOptions, setDatabaseOptions] = useState([]);
-  // サーバOSの選択肢
-  const [osOptions, setOsOptions] = useState([]);
-  // FW・MW・ツール等の選択肢
-  const [fwMwToolOptions, setFwMwToolOptions] = useState([]);
   // 終了日の表示非表示
   const [isEndDateDisabled, setIsEndDateDisabled] = useState(true);
 
@@ -50,33 +43,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
    * 初期表示情報を取得する
    */
   const fetchData = () => {
-    ['languages', 'databases', 'operating_systems', 'fw_mw_tool_items'].forEach((tableName) => {
-      fetchOptions(tableName);
-    });
-  };
 
-  /**
-   * 選択肢一覧を取得する
-   */
-  const fetchOptions = async (tableName) => {
-    const { data, error } = await supabase.from(tableName).select().order('name', {ascending: true});
-    if (error) {
-      console.error(error);
-    } else {
-      // react-selectのコンポーネントに合わせて成型する
-      const optionList = data.map((d) => {
-        return { value: d.name, label: d.name }
-      });
-      if (tableName === 'languages') {
-        setLanguageOptions(optionList);
-      } else if (tableName === 'databases') {
-        setDatabaseOptions(optionList);
-      } else if (tableName === 'operating_systems') {
-        setOsOptions(optionList);
-      } else if (tableName === 'fw_mw_tool_items') {
-        setFwMwToolOptions(optionList);
-      }
-    }
   };
 
   /** フォームの表示非表示を切り替える */
