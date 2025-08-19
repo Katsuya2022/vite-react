@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './ProjectForm.css';
 import TabSelect from '../TabSelect/TabSelect';
-import { popularLanguages, popularDatabases, popularOs, popularFrameworksAndTools } from '../../utils/constants';
+import { supabase } from '../../lib/supabase';
 
 const ProjectForm = ({project, setProject, onDeleteProject}) => {
   const [displayInputArea, setDisplayInputArea] = useState(false);
+  const [languageOptions, setLanguageOptions] = useState([]);
+  const [databaseOptions, setDatabaseOptions] = useState([]);
+  const [osOptions, setOsOptions] = useState([]);
+  const [fwMwToolOptions, setFwMwToolOptions] = useState([]);
   /** フォームの表示非表示を切り替える */
   const toggleDisplay = () => {
     setDisplayInputArea(!displayInputArea);
@@ -32,6 +36,46 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
     { key: 'maintenance', label: '保守・運用' },
   ];
 
+  /**
+   * 初期表示時の情報を取得する処理を呼び出す
+   */
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  /**
+   * 初期表示情報を取得する
+   */
+  const fetchData = () => {
+    ['languages', 'databases', 'operating_systems', 'fw_mw_tool_items'].forEach((tableName) => {
+      fetchOptions(tableName);
+    });
+  };
+
+  /**
+   * 選択肢一覧を取得する
+   */
+  const fetchOptions = async (tableName) => {
+    const { data, error } = await supabase.from(tableName).select().order('name', {ascending: true});
+    if (error) {
+      console.error(error);
+    } else {
+      // react-selectのコンポーネントに合わせて成型する
+      const optionList = data.map((d) => {
+        return { value: d.name, label: d.name }
+      });
+      if (tableName === 'languages') {
+        setLanguageOptions(optionList);
+      } else if (tableName === 'databases') {
+        setDatabaseOptions(optionList);
+      } else if (tableName === 'operating_systems') {
+        setOsOptions(optionList);
+      } else if (tableName === 'fw_mw_tool_items') {
+        setFwMwToolOptions(optionList);
+      }
+    }
+  };
+
   const handleSubmit = ((e) => {
     e.preventDefault();
     checkDate();
@@ -39,6 +83,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
       alert('担当工程を1つ以上選択してください')
     }
   });
+
   const checkDate = () => {
     if (!project.startDate) {
       alert('開始日を入力してください');
@@ -295,7 +340,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
           <div className='row mb-3'>
             <label htmlFor={`langage-${project.id}`} className="col-sm-3 col-form-label">使用言語</label>
             <TabSelect
-              options={popularLanguages}
+              options={languageOptions}
               setValue={handleLanguageInput}
               value={project.langages}
               placeholder="例：Java, JavaScript, HTML, CSS"
@@ -314,7 +359,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
           <div className='row mb-3'>
             <label htmlFor={`db-${project.id}`} className="col-sm-3 col-form-label">DB</label>
             <TabSelect
-              options={popularDatabases}
+              options={databaseOptions}
               setValue={handleDbInput}
               value={project.database}
               placeholder="例：MySQL, PostgreSQL, Oracle"
@@ -333,7 +378,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
           <div className='row mb-3'>
             <label htmlFor={`os-${project.id}`} className="col-sm-3 col-form-label">サーバOS</label>
             <TabSelect
-              options={popularOs}
+              options={osOptions}
               setValue={handleOsInput}
               value={project.os}
               placeholder="例：Windows, Linux, Unix"
@@ -352,7 +397,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
           <div className='row mb-3'>
             <label htmlFor={`langage-${project.id}`} className="col-sm-3 col-form-label">FW・MW・ﾂｰﾙ等</label>
             <TabSelect
-              options={popularFrameworksAndTools}
+              options={fwMwToolOptions}
               setValue={handleToolsInput}
               value={project.langages}
               placeholder="例：Vscode, Eclipse, Git, BootStrap"
