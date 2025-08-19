@@ -102,9 +102,14 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
     }
 
     // 経過月数の計算
-    const years = end.getFullYear() - start.getFullYear();
+    let years = end.getFullYear() - start.getFullYear();
     // 月の計算は開始日は月初、終了日は月末と考え、差分の計算後＋１する
-    const months = end.getMonth() - start.getMonth() + 1;
+    let months = end.getMonth() - start.getMonth() + 1;
+    // 月が12か月を超える場合、1年加算し、12か月減算する
+    if (months >= 12) {
+      years += 1;
+      months %= 12;
+    }
     const totalText = `${years}年${months}ヶ月`;
 
     alert(totalText);
@@ -194,7 +199,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
       </div>
       {
         displayInputArea &&
-        <form onSubmit={handleSubmit}>
+        <form>
           {/* 案件名 */}
           <div className="row mb-3">
             <label htmlFor={`project-name-${project.id}`} className="col-sm-3 col-form-label">案件名</label>
@@ -290,7 +295,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 id={`teams-${project.id}`}
                 type="number"
                 className="form-control"
-                value={project.memberCounts.team}
+                value={project.memberCounts.teams}
                 onChange={(e) =>
                   setProject({ ...project, memberCounts: {...project.memberCounts, teams: e.target.value} })
                 }
@@ -308,7 +313,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 id={`developers-${project.id}`}
                 type="number"
                 className="form-control"
-                value={project.memberCounts.team}
+                value={project.memberCounts.developers}
                 onChange={(e) =>
                   setProject({ ...project, memberCounts: {...project.memberCounts, developers: e.target.value} })
                 }
@@ -326,7 +331,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
                 id={`total-${project.id}`}
                 type="number"
                 className="form-control"
-                value={project.memberCounts.team}
+                value={project.memberCounts.total}
                 onChange={(e) =>
                   setProject({ ...project, memberCounts: {...project.memberCounts, total: e.target.value} })
                 }
@@ -436,7 +441,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
               }
             </div>
           </fieldset>
-          <button type="submit" className="btn btn-primary">保存する</button>
+          <button type="button" className="btn btn-primary" onClick={handleSubmit}>保存する</button>
         </form>
       }
     </div>
