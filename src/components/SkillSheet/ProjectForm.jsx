@@ -4,21 +4,24 @@ import TabSelect from '../TabSelect/TabSelect';
 import { supabase } from '../../lib/supabase';
 
 const ProjectForm = ({project, setProject, onDeleteProject}) => {
+  // 入力フォームの表示/非表示
   const [displayInputArea, setDisplayInputArea] = useState(false);
+  // 使用言語の選択肢
   const [languageOptions, setLanguageOptions] = useState([]);
+  // DBの選択肢
   const [databaseOptions, setDatabaseOptions] = useState([]);
+  // サーバOSの選択肢
   const [osOptions, setOsOptions] = useState([]);
+  // FW・MW・ツール等の選択肢
   const [fwMwToolOptions, setFwMwToolOptions] = useState([]);
-  /** フォームの表示非表示を切り替える */
-  const toggleDisplay = () => {
-    setDisplayInputArea(!displayInputArea);
-  }
+  // 終了日の表示非表示
+  const [isEndDateDisabled, setIsEndDateDisabled] = useState(true);
+
   /** フォームの表示非表示を切り替えるリンクのテキスト */
   const toggleText = displayInputArea ? '閉じる' : '編集';
   /** 表示用案件名 案件名が未入力の場合はデフォルトの"案件名"を返す */
   const displayProjectName = project.project_name ? project.project_name : '案件名';
-  /** 終了日の表示非表示 */
-  const [isEndDateDisabled, setIsEndDateDisabled] = useState(true);
+  /** 案件内容の雛形 */
   const PROJECT_DETAIL_TEMPLATE = `≪担当業務≫
 
 ≪習得スキル≫
@@ -76,43 +79,9 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
     }
   };
 
-  const handleSubmit = ((e) => {
-    e.preventDefault();
-    checkDate();
-    if(!isAtLeastOnePhaseChecked) {
-      alert('担当工程を1つ以上選択してください')
-    }
-  });
-
-  const checkDate = () => {
-    if (!project.startDate) {
-      alert('開始日を入力してください');
-      return;
-    }
-    if (!project.endDate) {
-      alert('終了日を入力してください');
-      return;
-    }
-
-    const start = new Date(project.startDate);
-    const end = new Date(project.endDate);
-    if (end < start) {
-      alert('終了日は開始日以降の日付を入力してください');
-      return;
-    }
-
-    // 経過月数の計算
-    let years = end.getFullYear() - start.getFullYear();
-    // 月の計算は開始日は月初、終了日は月末と考え、差分の計算後＋１する
-    let months = end.getMonth() - start.getMonth() + 1;
-    // 月が12か月を超える場合、1年加算し、12か月減算する
-    if (months >= 12) {
-      years += 1;
-      months %= 12;
-    }
-    const totalText = `${years}年${months}ヶ月`;
-
-    alert(totalText);
+  /** フォームの表示非表示を切り替える */
+  const toggleDisplay = () => {
+    setDisplayInputArea(!displayInputArea);
   }
 
   /** 
@@ -187,8 +156,59 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
     setProject({...project, tools: newTools})
   }
 
-  /** 担当工程に1つ以上チェックが入っているか */
-  const isAtLeastOnePhaseChecked = Object.values(project.phase).some(v => v);
+  /** 保存するボタン押下時の処理 */
+  const handleSubmit = ((e) => {
+    e.preventDefault();
+    checkFormInputs();
+  });
+
+  /** 入力フォームのチェック処理 */
+  const checkFormInputs = () => {
+    // 案件名のチェック処理
+    if (!project.project_name) {
+      alert('案件名を入力してください');
+      return;
+    }
+
+    // 開始日のチェック処理
+    if (!project.startDate) {
+      alert('開始日を入力してください');
+      return;
+    }
+
+    // 終了日のチェック処理
+    if (!project.endDate) {
+      alert('終了日を入力してください');
+      return;
+    }
+
+    // 開始日、終了日の整合性チェック処理
+    const start = new Date(project.startDate);
+    const end = new Date(project.endDate);
+    if (end < start) {
+      alert('終了日は開始日以降の日付を入力してください');
+      return;
+    }
+
+    // 案件内容のチェック処理
+    if (!project.project_detail) {
+      alert('案件内容を入力してください');
+      return;
+    }
+
+    // 役割のチェック処理
+    if (!project.role) {
+      alert('役割を入力してください');
+      return;
+    }
+
+    // 担当工程のチェック処理
+    const isAtLeastOnePhaseChecked = Object.values(project.phase).some(v => v);
+    if(!isAtLeastOnePhaseChecked) {
+      alert('担当工程を1つ以上選択してください');
+      return;
+    }
+  }
 
   return (
     <div id="input-area" className="p-3 rounded border border-primary mb-4">
