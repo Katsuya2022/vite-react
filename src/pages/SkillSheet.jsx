@@ -6,32 +6,32 @@ import './SkillSheet.css'
 const SkillSheet = () => {
   const [displayKihon, setDisplayKihon] = useState(false);
   const [project, setProject] = useState({
-    id: 'project1',     // ID
-    title: '案件1',     // 案件名
-    startDate: '',      // 開始日
-    endDate: '',        // 終了日
-    period: 0,          // 期間
-    projectDetail: '',  // 案件内容
-    role: '',           // 役割
-    memberCounts: {     // 規模
-      teams: 0,         // チーム
-      developers: 0,    // 開発
-      total: 0,         // 全体
+    id: 'project1',         // ID
+    project_name: '案件1',  // 案件名
+    startDate: '',          // 開始日
+    endDate: '',            // 終了日
+    period: 0,              // 期間
+    project_detail: '',     // 案件内容
+    role: '',               // 役割
+    memberCounts: {         // 規模
+      teams: 0,             // チーム
+      developers: 0,        // 開発
+      total: 0,             // 全体
     },
-    languages: [],      // 言語
-    database: [],       // データベース
-    os: [],             // サーバOS
-    tools: [],          // FW・MW・ツール等
-    phase: {            // 担当工程
+    languages: [],          // 言語
+    database: [],           // データベース
+    os: [],                 // サーバOS
+    tools: [],              // FW・MW・ツール等
+    phase: {                // 担当工程
       requirements: false,      // 要件定義
-      basicDesign: false,       // 基本設計
-      detailDesign: false,      // 詳細設計
+      basic_design: false,      // 基本設計
+      detail_design: false,     // 詳細設計
       implementation: false,    // 実装・単体
-      integrationTest: false,   // 結合テスト
-      systemTest: false,        // 総合テスト
+      integration_test: false,  // 結合テスト
+      system_test: false,       // 総合テスト
       maintenance: false        // 保守・運用
     },
-    visible: true       // 表示/非表示
+    visible: true           // 表示/非表示
   });
 
   const [projects, setProjects] = useState([
@@ -53,7 +53,7 @@ const SkillSheet = () => {
     const newProject = {
       ...project,
       id: `project${cntProjects}`,
-      title: `案件${cntProjects}`,
+      project_name: `案件${cntProjects}`,
       visible: true
     }
     setProjects([...projects, newProject]);
@@ -284,7 +284,7 @@ const SkillSheet = () => {
                       <td rowSpan={2} style={{ width: '8%' }}>{project.startDate}</td>
                       <td rowSpan={2} style={{ width: '2%' }}>-</td>
                       <td rowSpan={2} style={{ width: '8%' }}>{project.endDate}</td>
-                      <td>{`■${project.title}`}</td>
+                      <td>{`■${project.project_name}`}</td>
                       <td>{project.role}</td>
                       <td rowSpan={3}>
                         {
@@ -315,17 +315,17 @@ const SkillSheet = () => {
                         }
                       </td>
                       <td rowSpan={3}>{dispPhaseIcon(project.phase.requirements)}</td>
-                      <td rowSpan={3}>{dispPhaseIcon(project.phase.basicDesign)}</td>
-                      <td rowSpan={3}>{dispPhaseIcon(project.phase.detailDesign)}</td>
+                      <td rowSpan={3}>{dispPhaseIcon(project.phase.basic_design)}</td>
+                      <td rowSpan={3}>{dispPhaseIcon(project.phase.detail_design)}</td>
                       <td rowSpan={3}>{dispPhaseIcon(project.phase.implementation)}</td>
-                      <td rowSpan={3}>{dispPhaseIcon(project.phase.integrationTest)}</td>
-                      <td rowSpan={3}>{dispPhaseIcon(project.phase.systemTest)}</td>
+                      <td rowSpan={3}>{dispPhaseIcon(project.phase.integration_test)}</td>
+                      <td rowSpan={3}>{dispPhaseIcon(project.phase.system_test)}</td>
                       <td rowSpan={3}>{dispPhaseIcon(project.phase.maintenance)}</td>
                     </tr>
 
                     <tr>
                       <td rowSpan={2}>
-                        <span className='project-detail'>{`${project.projectDetail}`}</span>
+                        <span className='project-detail'>{`${project.project_detail}`}</span>
                       </td>
                       <td rowSpan={2}>
                         <span>

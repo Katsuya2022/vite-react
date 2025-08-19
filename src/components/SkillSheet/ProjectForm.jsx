@@ -12,7 +12,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
   /** フォームの表示非表示を切り替えるリンクのテキスト */
   const toggleText = displayInputArea ? '閉じる' : '編集';
   /** 表示用案件名 案件名が未入力の場合はデフォルトの"案件名"を返す */
-  const displayProjectTitle = project.title ? project.title : '案件名';
+  const displayProjectName = project.project_name ? project.project_name : '案件名';
   /** 終了日の表示非表示 */
   const [isEndDateDisabled, setIsEndDateDisabled] = useState(true);
   const PROJECT_DETAIL_TEMPLATE = `≪担当業務≫
@@ -24,11 +24,11 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
   /** 担当工程のチェックボックスに使う情報リスト */
   const PHASE_FIELDS = [
     { key: 'requirements', label: '要件定義' },
-    { key: 'basicDesign', label: '基本設計' },
-    { key: 'detailDesign', label: '詳細設計' },
+    { key: 'basic_design', label: '基本設計' },
+    { key: 'detail_design', label: '詳細設計' },
     { key: 'implementation', label: '実装・単体' },
-    { key: 'integrationTest', label: '結合テスト' },
-    { key: 'systemTest', label: '総合テスト' },
+    { key: 'integration_test', label: '結合テスト' },
+    { key: 'system_test', label: '総合テスト' },
     { key: 'maintenance', label: '保守・運用' },
   ];
 
@@ -143,7 +143,7 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
   return (
     <div id="input-area" className="p-3 rounded border border-primary mb-4">
       <div className='d-flex'>
-        <h2>{displayProjectTitle}</h2>
+        <h2>{displayProjectName}</h2>
         <button className='btn btn-link' onClick={toggleDisplay}>{toggleText}</button>
         <button className='btn btn-link text-danger' onClick={() => onDeleteProject(project.id)}>削除</button>
       </div>
@@ -152,15 +152,15 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
         <form onSubmit={handleSubmit}>
           {/* 案件名 */}
           <div className="row mb-3">
-            <label htmlFor={`title-${project.id}`} className="col-sm-3 col-form-label">案件名</label>
+            <label htmlFor={`project-name-${project.id}`} className="col-sm-3 col-form-label">案件名</label>
             <div className="col-sm-9">
               <input
-                id={`title-${project.id}`}
+                id={`project-name-${project.id}`}
                 type="text"
                 className="form-control"
-                value={project.title}
+                value={project.project_name}
                 onChange={(e) =>
-                  setProject({ ...project, title: e.target.value })
+                  setProject({ ...project, project_name: e.target.value })
                 }
                 required
               />
@@ -202,17 +202,17 @@ const ProjectForm = ({project, setProject, onDeleteProject}) => {
 
           {/* 案件内容 */}
           <div className="row mb-3">
-            <label htmlFor={`projectDetail-${project.id}`} className="col-sm-3 col-form-label">案件内容<br />
-              <button type='button' className='btn btn-link add-project-template-btn' onClick={() => setProject({...project, projectDetail: PROJECT_DETAIL_TEMPLATE})}>雛形を追加</button>
+            <label htmlFor={`project-detail-${project.id}`} className="col-sm-3 col-form-label">案件内容<br />
+              <button type='button' className='btn btn-link add-project-template-btn' onClick={() => setProject({...project, project_detail: PROJECT_DETAIL_TEMPLATE})}>雛形を追加</button>
             </label>
             <div className="col-sm-9">
               <textarea
-                id={`projectDetail-${project.id}`}
-                className="form-control projectDetail"
+                id={`project-detail-${project.id}`}
+                className="form-control project-detail"
                 rows="3"
-                value={project.projectDetail}
+                value={project.project_detail}
                 onChange={(e) =>
-                  setProject({ ...project, projectDetail: e.target.value })
+                  setProject({ ...project, project_detail: e.target.value })
                 }
                 required
               />
