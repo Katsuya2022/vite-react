@@ -4,7 +4,9 @@ import AddIcon from '@mui/icons-material/Add';
 import './SkillSheet.css'
 
 const SkillSheet = () => {
+  // 基本情報入力フォームの表示/非表示
   const [displayKihon, setDisplayKihon] = useState(false);
+  // 案件情報
   const [project, setProject] = useState({
     id: 'project1',         // ID
     project_name: '案件1',  // 案件名
@@ -34,20 +36,29 @@ const SkillSheet = () => {
     visible: true           // 表示/非表示
   });
 
-  const [projects, setProjects] = useState([
-    project
-  ]);
+  // 案件リスト
+  const [projects, setProjects] = useState([project]);
 
-  // setProject 関数を定義して個別プロジェクトを更新
+  /**
+   * 案件を更新
+   * @param {*} id 案件のID
+   * @param {*} updatedProject 更新後の案件 
+   */
   const updateProject = (id, updatedProject) => {
     const updated = projects.map(p => p.id === id ? updatedProject : p);
     setProjects(updated);
   };
   
+  /**
+   * 基本情報表示/非表示切り替え処理
+   */
   const toggleDisplay = () => {
     setDisplayKihon(!displayKihon);
   }
 
+  /**
+   * 案件を追加する
+   */
   const addProject = () => {
     const cntProjects = projects.length + 1;
     const newProject = {
@@ -59,6 +70,10 @@ const SkillSheet = () => {
     setProjects([...projects, newProject]);
   }
 
+  /**
+   * 案件を削除する
+   * @param {*} id 削除する案件のID
+   */
   const deleteProject = (id) => {
     const newProjects = projects.filter((project) => { 
       return project.id !== id;
@@ -93,8 +108,10 @@ const SkillSheet = () => {
     return `${resultYears}年${resultMonths}ヶ月`;
   }
 
+  /** 基本情報フォームの表示非表示を切り替えるリンクのテキスト */
   const kihonToggleText = displayKihon ? '閉じる' : '編集';
 
+  /** 担当工程の表示アイコン */
   const dispPhaseIcon = (phase) => {
     return phase ? '●' : '';
   }
@@ -280,7 +297,7 @@ const SkillSheet = () => {
                 projects.map((project, index) => (
                   <React.Fragment key={index}>
                     <tr>
-                      <th scope="row" rowSpan={3} className="bg-th" style={{ width: '2%' }}>1</th>
+                      <th scope="row" rowSpan={3} className="bg-th" style={{ width: '2%' }}>{index + 1}</th>
                       <td rowSpan={2} style={{ width: '8%' }}>{project.startDate}</td>
                       <td rowSpan={2} style={{ width: '2%' }}>-</td>
                       <td rowSpan={2} style={{ width: '8%' }}>{project.endDate}</td>
