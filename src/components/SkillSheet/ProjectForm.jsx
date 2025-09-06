@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import './ProjectForm.css';
 import TabSelect from '../TabSelect/TabSelect';
+import { useToast } from '../Toast/Toast';
 
 const ProjectForm = ({
   project, setProject, onDeleteProject, languageOptions, databaseOptions, osOptions, fwMwToolOptions
 }) => {
+  // トーストコンポーネントを使用する準備
+  const {showToast} = useToast();
   // 入力フォームの表示/非表示
   const [displayInputArea, setDisplayInputArea] = useState(false);
   // 終了日の表示非表示
@@ -133,61 +136,67 @@ const ProjectForm = ({
 
   /**
    * 入力フォームのチェック処理
+   * エラーの場合、エラーメッセージを表示する
    * @returns エラーの有無
    */
   const checkFormInputs = () => {
     /** エラーの有無 */
     let isError = false;
+    /** エラーメッセージ */
+    let errorMsg = '';
+
     // 案件名のチェック処理
-    if (!project.project_name) {
-      alert('案件名を入力してください');
+    if (!isError && !project.project_name) {
+      errorMsg = '案件名を入力してください';
       isError = true;
-      return isError;
     }
 
     // 開始日のチェック処理
-    if (!project.start_date) {
-      alert('開始日を入力してください');
+    if (!isError && !project.start_date) {
+      errorMsg = '開始日を入力してください';
       isError = true;
-      return isError;
     }
 
     // 終了日のチェック処理
-    if (!project.end_date) {
-      alert('終了日を入力してください');
+    if (!isError && !project.end_date) {
+      errorMsg = '終了日を入力してください';
       isError = true;
-      return isError;
     }
 
     // 開始日、終了日の整合性チェック処理
     const start = new Date(project.start_date);
     const end = new Date(project.end_date);
-    if (end < start) {
-      alert('終了日は開始日以降の日付を入力してください');
+    if (!isError && end < start) {
+      errorMsg = '終了日は開始日以降の日付を入力してください';
       isError = true;
-      return isError;
     }
 
     // 案件内容のチェック処理
-    if (!project.project_detail) {
-      alert('案件内容を入力してください');
+    if (!isError && !project.project_detail) {
+      errorMsg = '案件内容を入力してください';
       isError = true;
-      return isError;
     }
 
     // 役割のチェック処理
-    if (!project.role) {
-      alert('役割を入力してください');
+    if (!isError && !project.role) {
+      errorMsg = '役割を入力してください';
       isError = true;
-      return isError;
     }
 
     // 担当工程のチェック処理
     const isAtLeastOnePhaseChecked = Object.values(project.phase).some(v => v);
-    if(!isAtLeastOnePhaseChecked) {
-      alert('担当工程を1つ以上選択してください');
+    if(!isError && !isAtLeastOnePhaseChecked) {
+      errorMsg = '担当工程を1つ以上選択してください';
       isError = true;
-      return isError;
+    }
+
+    // エラーがある場合、エラーメッセージを表示する
+    if(isError) {
+      showToast({
+        title: 'エラー',
+        message: errorMsg,
+        type: 'danger',
+      });
     }
 
     // エラーが無ければisError==falseを返す
