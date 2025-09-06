@@ -8,3 +8,12 @@
 export const truncateText = (str, length) => {
   return str.length > length ? str.slice(0, length) + "..." : str;
 };
+
+/**
+ * 文字列の前後から半角・全角スペースを除去する
+ * @param {string} str 対象の文字列
+ * @returns {string} スペースを除去した文字列
+ */
+export const trimSpaces = (str) => {
+  return str.replace(/^[\s　]+|[\s　]+$/g, "");
+};

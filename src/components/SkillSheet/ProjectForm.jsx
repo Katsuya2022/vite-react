@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './ProjectForm.css';
 import TabSelect from '../TabSelect/TabSelect';
 import { useToast } from '../Toast/Toast';
-import { truncateText } from '../../utils/utils';
+import { truncateText, trimSpaces } from '../../utils/utils';
 
 const ProjectForm = ({
   project, setProject, onDeleteProject, languageOptions, databaseOptions, osOptions, fwMwToolOptions
@@ -141,6 +141,7 @@ const ProjectForm = ({
 
   /**
    * 入力フォームのチェック処理
+   * フリー入力の項目は前後のスペースを除去する（案件名、案件内容、役割）
    * エラーの場合、エラーメッセージを表示する
    * @returns エラーの有無
    */
@@ -150,8 +151,23 @@ const ProjectForm = ({
     /** エラーメッセージ */
     let errorMsg = '';
 
+    /** 前後のスペースを除去した案件名 */
+    const tempProjectName = trimSpaces(project.project_name);
+    /** 前後のスペースを除去した案件内容 */
+    const tempProjectDetail = trimSpaces(project.project_detail);
+    /** 前後のスペースを除去した役割 */
+    const tempRole = trimSpaces(project.role);
+
+    // フリー入力の項目の前後のスペースを除去する（案件名、案件内容、役割）
+    setProject({
+      ...project,
+      project_name: tempProjectName,
+      project_detail: tempProjectDetail,
+      role: tempRole
+    });
+
     // 案件名のチェック処理
-    if (!isError && !project.project_name) {
+    if (!isError && !tempProjectName) {
       errorMsg = '案件名を入力してください';
       isError = true;
     }
@@ -177,13 +193,13 @@ const ProjectForm = ({
     }
 
     // 案件内容のチェック処理
-    if (!isError && !project.project_detail) {
+    if (!isError && !tempProjectDetail) {
       errorMsg = '案件内容を入力してください';
       isError = true;
     }
 
     // 役割のチェック処理
-    if (!isError && !project.role) {
+    if (!isError && !tempRole) {
       errorMsg = '役割を入力してください';
       isError = true;
     }
