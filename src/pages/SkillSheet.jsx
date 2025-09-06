@@ -3,6 +3,7 @@ import ProjectForm from '../components/SkillSheet/ProjectForm';
 import AddIcon from '@mui/icons-material/Add';
 import './SkillSheet.css'
 import { supabase } from '../lib/supabase';
+import { truncateText } from '../utils/utils';
 
 const SkillSheet = () => {
   // 基本情報入力フォームの表示/非表示
@@ -359,7 +360,7 @@ const SkillSheet = () => {
                       <td rowSpan={2} style={{ width: '8%' }}>{project.start_date}</td>
                       <td rowSpan={2} style={{ width: '2%' }}>-</td>
                       <td rowSpan={2} style={{ width: '8%' }}>{project.end_date}</td>
-                      <td>{`■${project.project_name}`}</td>
+                      <td>{`■${truncateText(project.project_name, 14)}`}</td>
                       <td>{project.role}</td>
                       <td rowSpan={3}>
                         {

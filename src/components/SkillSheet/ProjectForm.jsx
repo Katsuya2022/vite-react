@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './ProjectForm.css';
 import TabSelect from '../TabSelect/TabSelect';
 import { useToast } from '../Toast/Toast';
+import { truncateText } from '../../utils/utils';
 
 const ProjectForm = ({
   project, setProject, onDeleteProject, languageOptions, databaseOptions, osOptions, fwMwToolOptions
@@ -16,7 +17,11 @@ const ProjectForm = ({
   /** フォームの表示非表示を切り替えるリンクのテキスト */
   const toggleText = displayInputArea ? '閉じる' : '編集';
   /** 表示用案件名 案件名が未入力の場合はデフォルトの"案件名"を返す */
-  const displayProjectName = project.project_name ? project.project_name : '案件名';
+  const displayProjectName = project.project_name
+    ? project.project_name.length <= 8
+      ? project.project_name
+      : truncateText(project.project_name, 8)
+    : '案件名';
   /** 案件内容の雛形 */
   const PROJECT_DETAIL_TEMPLATE = `≪担当業務≫
 
