@@ -351,7 +351,7 @@ const ProjectForm = ({
             <TabSelect
               options={languageOptions}
               setValue={handleLanguageInput}
-              value={project.langages}
+              value={project.languages}
               placeholder="例：Java, JavaScript, HTML, CSS"
               id={`langage-${project.id}`}
               classProp='col-sm-9'
@@ -404,13 +404,13 @@ const ProjectForm = ({
 
           {/* FW・MW・ツール等 */}
           <div className='row mb-3'>
-            <label htmlFor={`langage-${project.id}`} className="col-sm-3 col-form-label">FW・MW・ﾂｰﾙ等</label>
+            <label htmlFor={`tools-${project.id}`} className="col-sm-3 col-form-label">FW・MW・ﾂｰﾙ等</label>
             <TabSelect
               options={fwMwToolOptions}
               setValue={handleToolsInput}
-              value={project.langages}
+              value={project.tools}
               placeholder="例：Vscode, Eclipse, Git, BootStrap"
-              id={`langage-${project.id}`}
+              id={`tools-${project.id}`}
               classProp='col-sm-9'
               styles={{
                 placeholder: (base) => ({
