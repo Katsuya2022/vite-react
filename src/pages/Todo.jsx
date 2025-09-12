@@ -82,9 +82,23 @@ const Todo = () => {
    */
   const deleteTodo = async (todo) => {
     if (window.confirm(`${todo.title}を削除してよろしいですか？`)) {
-      await supabase.from('todos').delete().eq('id', todo.id);
+      const { data, error } = await supabase.from('todos').delete().eq('id', todo.id).select();
+      // dataが空の配列の場合は、削除できたレコードがないことを意味するためエラー（RLSの可能性を考慮）
+      // errorがある場合はSQLエラーや接続エラーの場合のエラー
+      if ((!data || data.length === 0) || error) {
+        if (error) {
+          console.error(error.message);
+        }
+        showToast({
+          title: 'エラー',
+          message: '削除処理中にエラーが発生しました。',
+          type: 'danger',
+        });
+      // 削除成功時は削除後のtodo一覧を再取得する
+      } else {
+        fetchData();
+      }
     }
-    fetchData();
   }
 
   /**
