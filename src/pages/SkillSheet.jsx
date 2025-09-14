@@ -356,7 +356,7 @@ const SkillSheet = () => {
                 projects.map((project, index) => (
                   <React.Fragment key={index}>
                     <tr>
-                      <th scope="row" rowSpan={3} className="bg-th" style={{ width: '2%' }}>{index + 1}</th>
+                      <th scope="row" rowSpan={3} className="bg-th vertical-align-center" style={{ width: '2%' }}>{index + 1}</th>
                       <td rowSpan={2} style={{ width: '8%' }}>{project.start_date}</td>
                       <td rowSpan={2} style={{ width: '2%' }}>-</td>
                       <td rowSpan={2} style={{ width: '8%' }}>{project.end_date}</td>
@@ -390,13 +390,13 @@ const SkillSheet = () => {
                           ))
                         }
                       </td>
-                      <td rowSpan={3}>{dispPhaseIcon(project.phase.requirements)}</td>
-                      <td rowSpan={3}>{dispPhaseIcon(project.phase.basic_design)}</td>
-                      <td rowSpan={3}>{dispPhaseIcon(project.phase.detail_design)}</td>
-                      <td rowSpan={3}>{dispPhaseIcon(project.phase.implementation)}</td>
-                      <td rowSpan={3}>{dispPhaseIcon(project.phase.integration_test)}</td>
-                      <td rowSpan={3}>{dispPhaseIcon(project.phase.system_test)}</td>
-                      <td rowSpan={3}>{dispPhaseIcon(project.phase.maintenance)}</td>
+                      <td rowSpan={3} className='vertical-align-center'>{dispPhaseIcon(project.phase.requirements)}</td>
+                      <td rowSpan={3} className='vertical-align-center'>{dispPhaseIcon(project.phase.basic_design)}</td>
+                      <td rowSpan={3} className='vertical-align-center'>{dispPhaseIcon(project.phase.detail_design)}</td>
+                      <td rowSpan={3} className='vertical-align-center'>{dispPhaseIcon(project.phase.implementation)}</td>
+                      <td rowSpan={3} className='vertical-align-center'>{dispPhaseIcon(project.phase.integration_test)}</td>
+                      <td rowSpan={3} className='vertical-align-center'>{dispPhaseIcon(project.phase.system_test)}</td>
+                      <td rowSpan={3} className='vertical-align-center'>{dispPhaseIcon(project.phase.maintenance)}</td>
                     </tr>
 
                     <tr>

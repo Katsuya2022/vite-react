@@ -67,3 +67,7 @@ th.vertical-header {
 .project-detail {
   white-space: pre-wrap;
 }
+
+.vertical-align-center {
+  vertical-align: middle;
+}
