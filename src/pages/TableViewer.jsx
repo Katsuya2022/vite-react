@@ -43,7 +43,9 @@ const TableViewer = () => {
       });
       return;
     }
-    const { data, error } = await supabase.from(tableName).select().order('id', {ascending: true});
+    // id以外でソートしている場合の臨時対応
+    const sortColumn = tableName === 'japanese_stocks' ? 'code' : 'id';
+    const { data, error } = await supabase.from(tableName).select().order(sortColumn, {ascending: true});
     if (error) {
       console.error(error);
       setResponse(null);
