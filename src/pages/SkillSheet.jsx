@@ -40,7 +40,9 @@ const SkillSheet = () => {
 
   // 案件リスト
   const [projects, setProjects] = useState([project]);
-    // 使用言語の選択肢
+  // 案件数
+  const [projectsCnt, setProjectsCnt] = useState(0);
+  // 使用言語の選択肢
   const [languageOptions, setLanguageOptions] = useState([]);
   // DBの選択肢
   const [databaseOptions, setDatabaseOptions] = useState([]);
@@ -54,6 +56,7 @@ const SkillSheet = () => {
    */
   useEffect(() => {
     fetchData();
+    setProjectsCnt(projects.length);
   }, []);
 
   /**
@@ -110,13 +113,14 @@ const SkillSheet = () => {
    * 案件を追加する
    */
   const addProject = () => {
-    const cntProjects = projects.length + 1;
+    const newCnt = projectsCnt + 1;
     const newProject = {
       ...project,
-      id: `project${cntProjects}`,
-      project_name: `案件${cntProjects}`,
+      id: `project${newCnt}`,
+      project_name: `案件${newCnt}`,
       visible: true
     }
+    setProjectsCnt(newCnt);
     setProjects([...projects, newProject]);
   }
 
