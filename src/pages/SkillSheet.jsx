@@ -4,16 +4,30 @@ import AddIcon from '@mui/icons-material/Add';
 import './SkillSheet.css'
 import { supabase } from '../lib/supabase';
 import { truncateText } from '../utils/utils';
+import { useAuth } from '../contexts/AuthContext';
 
 const SkillSheet = () => {
   // 基本情報入力フォームの表示/非表示
   const [displayKihon, setDisplayKihon] = useState(false);
+  // 基本情報
+  const [kihon, setKihon] = useState({
+    name_kana: '',          // フリガナ
+    name: '',               // 名前
+    nearest_station: '',    // 最寄駅
+    kadou: '',              // 稼働
+    qualifications: '',     // 資格
+    affiliation: '',        // 所属
+    gender: '',             // 性別
+    age: 0,                 // 年齢
+    has_spouse: '',         // 配偶者
+    education: '',          // 学歴
+  });
   // 案件情報
   const [project, setProject] = useState({
     id: 'project1',         // ID
     project_name: '案件1',  // 案件名
-    start_date: '',          // 開始日
-    end_date: '',            // 終了日
+    start_date: '',         // 開始日
+    end_date: '',           // 終了日
     period: 0,              // 期間
     project_detail: '',     // 案件内容
     role: '',               // 役割
@@ -51,6 +65,9 @@ const SkillSheet = () => {
   // FW・MW・ツール等の選択肢
   const [fwMwToolOptions, setFwMwToolOptions] = useState([]);
 
+  // ログインユーザー情報
+  const { user } = useAuth();
+
   /**
    * 初期表示処理
    */
@@ -62,7 +79,28 @@ const SkillSheet = () => {
   /**
    * 初期表示情報を取得する
    */
-  const fetchData = () => {
+  const fetchData = async () => {
+    // 基本情報を取得する
+    const { data, error } = await supabase.from('profiles').select().eq('id', user.id).single();
+    if (error) {
+      console.error(error);
+    } else {
+      console.log(data);
+      setKihon({
+          name_kana: data.name_kana,          // フリガナ
+          name: data.name,               // 名前
+          nearest_station: data.nearest_station,    // 最寄駅
+          kadou: '',              // 稼働
+          qualifications: data.qualifications,     // 資格
+          affiliation: data.affiliation,        // 所属
+          gender: data.gender,             // 性別
+          age: data.age,                 // 年齢
+          has_spouse: data.has_spouse,         // 配偶者
+          education: data.education,          // 学歴
+      });
+    }
+
+    // フォームのオプション一覧を取得
     ['languages', 'databases', 'operating_systems', 'fw_mw_tool_items'].forEach((tableName) => {
       fetchOptions(tableName);
     });
@@ -108,6 +146,14 @@ const SkillSheet = () => {
   const toggleDisplay = () => {
     setDisplayKihon(!displayKihon);
   }
+
+  /**
+   * 基本情報入力処理
+   * @param {*} e 入力イベント
+   */
+  const handleChange = (e) => {
+    setKihon({ ...kihon, [e.target.name]: e.target.value });
+  };
 
   /**
    * 案件を追加する
@@ -190,19 +236,108 @@ const SkillSheet = () => {
               displayKihon && 
               <div>
                 <form>
+                  {/* 表示名（カナ） */}
+                  <div className="row mb-3">
+                    <label htmlFor="name_kana" className="col-sm-3 col-form-label">表示名（カナ）</label>
+                    <div className="col-sm-9">
+                      <input
+                        id='name_kana'
+                        type="text"
+                        className="form-control"
+                        name="name_kana"
+                        value={kihon.name_kana}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+
                   {/* 表示名（漢字） */}
                   <div className="row mb-3">
                     <label htmlFor="name" className="col-sm-3 col-form-label">表示名（漢字）</label>
                     <div className="col-sm-9">
-                      <input type="text" className="form-control" id="name" />
+                      <input
+                        id='name'
+                        type="text"
+                        className="form-control"
+                        name="name"
+                        value={kihon.name}
+                        onChange={handleChange}
+                      />
                     </div>
                   </div>
 
-                  {/* 表示名（カナ） */}
+                  {/* 最寄駅 */}
                   <div className="row mb-3">
-                    <label htmlFor="name-kana" className="col-sm-3 col-form-label">表示名（カナ）</label>
+                    <label htmlFor="nearest_station" className="col-sm-3 col-form-label">最寄駅</label>
                     <div className="col-sm-9">
-                      <input type="text" className="form-control" id="name-kana" />
+                      <input
+                        id='nearest_station'
+                        type="text"
+                        className="form-control"
+                        name="nearest_station"
+                        value={kihon.nearest_station}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+
+                  {/* 稼働 */}
+                  <div className="row mb-3">
+                    <label htmlFor="kadou" className="col-sm-3 col-form-label">稼働</label>
+                    <div className="col-sm-9">
+                      <input
+                        id='kadou'
+                        type="text"
+                        className="form-control"
+                        name="kadou"
+                        value={kihon.kadou}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+
+                  {/* 資格 */}
+                  <div className="row mb-3">
+                    <label htmlFor="qualifications" className="col-sm-3 col-form-label">資格</label>
+                    <div className="col-sm-9">
+                      <input
+                        id='qualifications'
+                        type="text"
+                        className="form-control"
+                        name="qualifications"
+                        value={kihon.qualifications}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+
+                  {/* 所属 */}
+                  <div className="row mb-3">
+                    <label htmlFor="affiliation" className="col-sm-3 col-form-label">所属</label>
+                    <div className="col-sm-9">
+                      <input
+                        id='affiliation'
+                        type="text"
+                        className="form-control"
+                        name="affiliation"
+                        value={kihon.affiliation}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+
+                  {/* 性別 */}
+                  <div className="row mb-3">
+                    <label htmlFor="gender" className="col-sm-3 col-form-label">性別</label>
+                    <div className="col-sm-9">
+                      <input
+                        id='gender'
+                        type="text"
+                        className="form-control"
+                        name="gender"
+                        value={kihon.gender}
+                        onChange={handleChange}
+                      />
                     </div>
                   </div>
 
@@ -210,17 +345,50 @@ const SkillSheet = () => {
                   <div className="row mb-3">
                     <label htmlFor="age" className="col-sm-3 col-form-label">年齢</label>
                     <div className="col-sm-9">
-                      <input type="text" inputMode="numeric" pattern="\d*" maxLength={3} className="form-control" id="age" />
+                      <input
+                        id='age'
+                        type="text"
+                        inputMode="numeric"
+                        pattern="\d*"
+                        maxLength={3}
+                        className="form-control"
+                        name="age"
+                        value={kihon.age}
+                        onChange={handleChange}
+                      />
                     </div>
                   </div>
-                  
-                  {/* Eメール */}
+
+                  {/* 配偶者 */}
                   <div className="row mb-3">
-                    <label htmlFor="email" className="col-sm-3 col-form-label">Eメール</label>
+                    <label htmlFor="has_spouse" className="col-sm-3 col-form-label">配偶者</label>
                     <div className="col-sm-9">
-                      <input type="email" className="form-control" id="email" />
+                      <input
+                        id='has_spouse'
+                        type="text"
+                        className="form-control"
+                        name="has_spouse"
+                        value={kihon.has_spouse}
+                        onChange={handleChange}
+                      />
                     </div>
                   </div>
+
+                  {/* 学歴 */}
+                  <div className="row mb-3">
+                    <label htmlFor="education" className="col-sm-3 col-form-label">学歴</label>
+                    <div className="col-sm-9">
+                      <input
+                        id='education'
+                        type="text"
+                        className="form-control"
+                        name="education"
+                        value={kihon.education}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+
                   <button type="submit" className="btn btn-primary">保存する</button>
                 </form>
               </div>
@@ -257,23 +425,23 @@ const SkillSheet = () => {
               <tbody>
                 <tr>
                   <th scope="row" className="bg-th">フリガナ</th>
-                  <td>AAA</td>
+                  <td>{kihon.name_kana}</td>
                 </tr>
                 <tr>
                   <th scope="row" className="bg-th">氏名</th>
-                  <td>AAA</td>
+                  <td>{kihon.name}</td>
                 </tr>
                 <tr>
                   <th scope="row" className="bg-th">最寄駅</th>
-                  <td>AAA</td>
+                  <td>{kihon.nearest_station}</td>
                 </tr>
                 <tr>
                   <th scope="row" className="bg-th">稼働</th>
-                  <td>AAA</td>
+                  <td>{kihon.kadou}</td>
                 </tr>
                 <tr>
                   <th scope="row" className="bg-th">資格</th>
-                  <td>AAA</td>
+                  <td>{kihon.qualifications}</td>
                 </tr>
               </tbody>
             </table>
@@ -282,23 +450,23 @@ const SkillSheet = () => {
               <tbody>
                 <tr>
                   <th scope="row" className="bg-th">所属</th>
-                  <td>AAA</td>
+                  <td>{kihon.affiliation}</td>
                 </tr>
                 <tr>
                   <th scope="row" className="bg-th">性別</th>
-                  <td>AAA</td>
+                  <td>{kihon.gender}</td>
                 </tr>
                 <tr>
                   <th scope="row" className="bg-th">年齢</th>
-                  <td>AAA</td>
+                  <td>{kihon.age}</td>
                 </tr>
                 <tr>
                   <th scope="row" className="bg-th">配偶者</th>
-                  <td>AAA</td>
+                  <td>{kihon.has_spouse}</td>
                 </tr>
                 <tr>
                   <th scope="row" className="bg-th">学歴</th>
-                  <td>AAA</td>
+                  <td>{kihon.education}</td>
                 </tr>
               </tbody>
             </table>
